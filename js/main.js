@@ -54,6 +54,30 @@
     revealEls.forEach(function (el) { el.classList.add("in"); });
   }
 
+  /* ---------- Hero visual parallax (subtle Apple-style scale/fade) ---------- */
+  var heroVisual = document.querySelector(".hero-visual");
+  if (heroVisual && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    var ticking = false;
+    window.addEventListener(
+      "scroll",
+      function () {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(function () {
+          var rect = heroVisual.getBoundingClientRect();
+          var vh = window.innerHeight;
+          var progress = Math.min(Math.max((vh - rect.top) / (vh * 1.1), 0), 1);
+          var scale = 1 - progress * 0.06;
+          var opacity = 1 - progress * 0.35;
+          heroVisual.style.transform = "scale(" + scale + ")";
+          heroVisual.style.opacity = opacity;
+          ticking = false;
+        });
+      },
+      { passive: true }
+    );
+  }
+
   /* ---------- Quantum lattice background ---------- */
   var canvas = document.getElementById("qc-bg");
   if (!canvas || !canvas.getContext) return;
@@ -68,12 +92,15 @@
 
   function resize() {
     DPR = Math.min(window.devicePixelRatio || 1, 2);
-    W = canvas.width = window.innerWidth * DPR;
-    H = canvas.height = window.innerHeight * DPR;
-    canvas.style.width = window.innerWidth + "px";
-    canvas.style.height = window.innerHeight + "px";
-    var area = window.innerWidth * window.innerHeight;
-    NODE_COUNT = Math.max(28, Math.min(90, Math.round(area / 16000)));
+    var box = canvas.parentElement.getBoundingClientRect();
+    var cw = box.width || window.innerWidth;
+    var ch = box.height || window.innerHeight * 0.5;
+    W = canvas.width = cw * DPR;
+    H = canvas.height = ch * DPR;
+    canvas.style.width = cw + "px";
+    canvas.style.height = ch + "px";
+    var area = cw * ch;
+    NODE_COUNT = Math.max(24, Math.min(80, Math.round(area / 9000)));
     initNodes();
   }
 

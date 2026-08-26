@@ -13,4 +13,3 @@
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<canvas id="qc-bg" aria-hidden="true"></canvas>
