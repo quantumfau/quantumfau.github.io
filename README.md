@@ -18,10 +18,15 @@ hosted for free on **GitHub Pages**.
 ├── projects.html         Example project showcase (placeholder content)
 ├── opportunities.html    Academic / conference / internship pathways
 ├── team.html             Officer team (placeholder roles)
+├── contact.html          Sponsorship / speaker / media / faculty inquiry form
 ├── join.html             How to join + membership interest form
 ├── css/style.css         Design system (dark, Apple-inspired theme)
 ├── js/main.js            Nav toggle, scroll animations, canvas background
-├── assets/favicon.svg    Site icon (quantum "atom" mark)
+├── assets/favicon.svg           Site icon (quantum "atom" mark)
+├── assets/logo-mark.svg         Icon only, transparent background
+├── assets/logo-lockup-dark.svg  Icon + wordmark, for dark backgrounds
+├── assets/logo-lockup-light.svg Icon + wordmark, for light backgrounds
+├── assets/png/                  PNG exports (social avatars, app icons, decks)
 ├── _partials/            Shared nav/head/footer templates (authoring only)
 ├── _content/             Per-page main content (authoring only)
 └── _build.sh             Regenerates *.html from _partials + _content
@@ -70,14 +75,38 @@ If you want a shorter URL like `quantumdevclub.fau.edu` or a custom domain,
 add a `CNAME` file with that domain, point its DNS at GitHub Pages, and set
 the custom domain under the same Pages settings.
 
-## Before you launch — placeholders to replace
+## Connect the forms to your email
 
-- **Membership form** (`join.html`): the form currently posts to
-  `https://formspree.io/f/your-form-id`. Create a free
-  [Formspree](https://formspree.io) endpoint (or a Google Form) and swap in
-  the real `action` URL.
-- **Contact email**: replace `quantumdevclub@fau.edu` in `join.html` and
-  `_partials/footer.html` with the club's real inbox.
+Both forms — the membership application on `join.html` and the sponsorship
+/ speaker / media inquiry form on `contact.html` — post to
+[Formspree](https://formspree.io), a free service that emails you every
+submission with no backend of your own to run. Formspree recently retired
+its old "just put an email in the URL" trick, so a real (free) form ID is
+needed:
+
+1. Go to [formspree.io](https://formspree.io) and create a free account
+   using **ktsekhmayste2022@fau.edu** (or any account, then add that address
+   as the form's notification email in step 3).
+2. Click **New Form**, name it (e.g. "QDC Membership"), and copy the
+   endpoint it gives you — it looks like `https://formspree.io/f/abcd1234`.
+3. In `_content/join.html`, replace `your-form-id` in
+   `action="https://formspree.io/f/your-form-id"` with your real ID. Do the
+   same for `_content/contact.html` (the free plan supports one form; if
+   you're on it, you can point both forms at the same ID — each email will
+   still say which form it came from via the hidden `_subject` field, and
+   you can add more forms on a paid plan).
+4. Run `./_build.sh` to regenerate `join.html` and `contact.html` with the
+   updated action URL, then commit and push.
+5. Submit each form once yourself — Formspree sends a one-time confirmation
+   email the first time; after you confirm, every future submission is
+   emailed to you automatically, with the submitter's own address set as
+   Reply-To so you can respond directly.
+
+Prefer Google Forms instead? Swap the whole `<form>` block for an embedded
+Google Form iframe — no code changes needed elsewhere on the site.
+
+## Before you launch — remaining placeholders
+
 - **Meeting time & location** (`join.html`): currently "Thursdays,
   6:00–7:00 PM" / "Location: TBD".
 - **Social links** (`_partials/footer.html`): Instagram, LinkedIn, GitHub,
@@ -86,6 +115,22 @@ the custom domain under the same Pages settings.
   real names, photos, and bios once elected.
 - **Projects page** (`projects.html`): example projects are illustrative —
   replace with real project write-ups as pods ship work.
+- **Contact email**: currently set to `ktsekhmayste2022@fau.edu` everywhere
+  (footer, join page, contact page). Swap to a dedicated club inbox (e.g. a
+  Google Group) once one exists, so the address doesn't depend on one
+  officer's personal account.
+
+## Logo
+
+`assets/logo-mark.svg` is the icon alone (transparent background) — use it
+anywhere you need just the mark. `assets/logo-lockup-dark.svg` and
+`-light.svg` pair the icon with the wordmark for dark or light backgrounds
+(decks, printed materials, a sponsor one-pager). `assets/png/` has rasterized
+versions: `logo-icon-512.png` / `logo-icon-1024.png` for social profile
+photos or a Discord server icon, `apple-touch-icon.png` (180×180) for mobile
+home-screen icons, and PNG copies of both lockups. All are regenerable from
+the SVGs with `rsvg-convert` (see git history for the exact commands) if you
+ever need a different size.
 
 ## Tech notes
 

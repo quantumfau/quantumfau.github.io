@@ -1,0 +1,81 @@
+<main>
+
+  <div class="page-header">
+    <div class="container">
+      <div class="mini-orb reveal in"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><ellipse cx="12" cy="12" rx="9.8" ry="4.1"/><ellipse cx="12" cy="12" rx="9.8" ry="4.1" transform="rotate(58 12 12)"/><circle cx="12" cy="12" r="2.1" fill="currentColor"/></svg></div>
+      <span class="kicker reveal in">Contact</span>
+      <h1 class="reveal in">Let's talk <span class="gradient-text">partnerships.</span></h1>
+      <p class="reveal in">Sponsorship, speaking, research collaboration, media — if it's not a membership application, this is the right form.</p>
+    </div>
+  </div>
+
+  <section class="tight">
+    <div class="container">
+      <div class="grid grid-3">
+        <div class="card reveal">
+          <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 17h4l3-9 4 14 3-9h4"/></svg></div>
+          <h3>Sponsors &amp; Partners</h3>
+          <p>Companies and organizations interested in sponsoring projects, hosting workshops, or offering internships.</p>
+        </div>
+        <div class="card reveal">
+          <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="8" r="3.2"/><path d="M5 20c0-3.5 3.1-6 7-6s7 2.5 7 6"/></svg></div>
+          <h3>Faculty &amp; Researchers</h3>
+          <p>FAU faculty or outside researchers interested in mentoring a project pod or co-authoring student work.</p>
+        </div>
+        <div class="card reveal">
+          <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 5h16v12H4z"/><path d="M9 21h6M12 17v4"/></svg></div>
+          <h3>Media &amp; Speakers</h3>
+          <p>Press inquiries, conference invitations, or requests to speak at one of our general meetings.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <form class="form-panel reveal" id="contact-form" action="https://formspree.io/f/your-form-id" method="POST">
+        <div class="section-head" style="margin-bottom:32px;">
+          <h2 style="font-size:26px;">Send an Inquiry</h2>
+          <p style="font-size:15px;">Goes straight to the club inbox — see "Connect the forms to your email" in README.md to activate.</p>
+        </div>
+        <input type="hidden" name="_subject" value="New inquiry — Quantum Development Club website">
+        <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+
+        <div class="form-row">
+          <label for="c-name">Full name</label>
+          <input type="text" id="c-name" name="name" placeholder="Jane Owl" required>
+        </div>
+
+        <div class="form-row">
+          <label for="c-email">Email</label>
+          <input type="email" id="c-email" name="email" placeholder="you@example.com" required>
+        </div>
+
+        <div class="form-row">
+          <label for="c-org">Organization (if applicable)</label>
+          <input type="text" id="c-org" name="organization" placeholder="Company, university, or publication">
+        </div>
+
+        <div class="form-row">
+          <label for="c-type">What's this about?</label>
+          <select id="c-type" name="inquiry_type">
+            <option>Sponsorship &amp; Partnerships</option>
+            <option>Speaker or Workshop Request</option>
+            <option>Media &amp; Press</option>
+            <option>Faculty &amp; Research Collaboration</option>
+            <option>Other</option>
+          </select>
+        </div>
+
+        <div class="form-row">
+          <label for="c-message">Message</label>
+          <textarea id="c-message" name="message" placeholder="Tell us a bit about what you have in mind" required></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-gradient" style="width:100%;">Send Inquiry</button>
+        <p class="form-note">Prefer email? Reach us directly at <a href="mailto:ktsekhmayste2022@fau.edu" style="color:var(--accent-cyan);">ktsekhmayste2022@fau.edu</a>.</p>
+      </form>
+    </div>
+  </section>
+
+</main>

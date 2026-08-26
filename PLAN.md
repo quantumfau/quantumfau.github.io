@@ -22,7 +22,14 @@ project pod pairs technical depth with business execution.
 | Projects | Example project showcase (placeholder until pods ship real work) |
 | Opportunities | How projects become academic / conference / internship outcomes |
 | Team | Officer roles (placeholder until elected) |
+| Contact | Sponsorship / speaker / media / faculty inquiry form |
 | Join | How to join, meeting info, membership interest form |
+
+A proper logo — an "atom orbit" mark (two crossing rings + a center node,
+gradient indigo→cyan) — is now used consistently across the nav, footer,
+favicon, and every page header, with standalone lockup and icon files in
+`assets/` for use off the website (slides, social profiles, printed
+materials).
 
 Tech choice: **static HTML/CSS/JS**, no framework or build step, deployed
 free on **GitHub Pages**. This was the right call for a student org site —
@@ -37,11 +44,12 @@ animated "quantum lattice" canvas background instead of stock photography.
 ## 3. Immediate next steps (before sharing the link publicly)
 
 1. Push this repo to GitHub and turn on Pages (exact commands in `README.md`).
-2. Wire up the `join.html` form to a real backend (Formspree free tier is
-   fastest; a Google Form is a fine alternative if you'd rather manage
-   responses in Sheets).
-3. Replace placeholder contact email, meeting time/location, and social
-   links (`_partials/footer.html`, `join.html`).
+2. Create the free Formspree form ID and drop it into `join.html` and
+   `contact.html` (2-minute one-time setup — see "Connect the forms to
+   your email" in `README.md`). Both forms are already wired to email
+   ktsekhmayste2022@fau.edu once that ID is in place.
+3. Replace placeholder meeting time/location and social links
+   (`_partials/footer.html`, `join.html`) — contact email is already set.
 4. Swap officer placeholders on `team.html` for real names once elected.
 5. Get the club officially registered with FAU Student Government / Owl
    Central (needed for room bookings, funding requests, and official

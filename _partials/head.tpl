@@ -6,6 +6,7 @@
 <title>__TITLE__</title>
 <meta name="description" content="__DESC__">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/png/apple-touch-icon.png">
 <meta property="og:title" content="__TITLE__">
 <meta property="og:description" content="__DESC__">
 <meta property="og:type" content="website">

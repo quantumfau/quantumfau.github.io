@@ -20,6 +20,7 @@ build_page "programs"      "Programs | Quantum Development Club at FAU" "Explore
 build_page "projects"      "Projects | Quantum Development Club at FAU" "A look at the quantum computing and applied AI projects our pods have built."
 build_page "opportunities" "Opportunities | Quantum Development Club at FAU" "How club projects turn into academic, conference, and internship opportunities."
 build_page "team"          "Team | Quantum Development Club at FAU" "Meet the officer team running the Quantum Development Club at FAU."
+build_page "contact"       "Contact | Quantum Development Club at FAU" "Get in touch about sponsorships, partnerships, speaking, or media."
 build_page "join"          "Join | Quantum Development Club at FAU" "Apply to join the Quantum Development Club at Florida Atlantic University."
 
 echo "All pages built."
