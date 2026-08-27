@@ -5,12 +5,15 @@ covers both the site itself and the broader steps to get the club running.
 
 ## 1. Concept
 
-The Quantum Development Club connects technical students (CS, engineering,
-physics, math) with business students (finance, management, marketing) to
-build real quantum computing and applied AI projects, and to turn that work
-into academic credit, conference submissions, and internship leads. The
-core idea driving every page of the site: **no student joins alone** — every
-project pod pairs technical depth with business execution.
+The Quantum Development Club connects students across three tracks —
+Technical (CS, engineering, physics, math, data science), Business &amp;
+Strategy (finance, management, marketing, economics, policy), and Creative
+&amp; Communications (design, writing, journalism, humanities) — to build real
+quantum computing and applied AI projects, and to turn that work into
+academic credit, conference submissions, and internship leads. The core
+idea driving every page of the site: **no student joins alone, and no major
+is excluded** — every project pod pairs technical depth with strategy and
+storytelling.
 
 ## 2. Website structure (what's built)
 
@@ -18,7 +21,7 @@ project pod pairs technical depth with business execution.
 |---|---|
 | Home | Hook, mission summary, track overview, calls to action |
 | About | Mission, who it's for, values |
-| Programs | Technical Track vs. Business Track, the semester project cycle |
+| Programs | Technical, Business & Strategy, and Creative & Communications tracks, the semester project cycle |
 | Projects | Example project showcase (placeholder until pods ship real work) |
 | Opportunities | How projects become academic / conference / internship outcomes |
 | Team | Officer roles (placeholder until elected) |

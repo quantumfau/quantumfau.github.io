@@ -502,6 +502,7 @@ section.tight { padding: 72px 0; }
 }
 .track.technical { background: linear-gradient(160deg, rgba(94,92,230,0.16), rgba(16,16,19,0.4)); }
 .track.business { background: linear-gradient(160deg, rgba(100,210,255,0.13), rgba(16,16,19,0.4)); }
+.track.creative { background: linear-gradient(160deg, rgba(191,90,242,0.15), rgba(16,16,19,0.4)); }
 .track .card-tag { margin-bottom: 20px; }
 .track h3 { font-weight: 700; }
 .track ul { margin: 22px 0 0; padding: 0; list-style: none; }
