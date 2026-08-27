@@ -1,0 +1,58 @@
+<main>
+
+  <div class="page-header">
+    <div class="container">
+      <div class="mini-orb reveal in"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><ellipse cx="12" cy="12" rx="9.8" ry="4.1"/><ellipse cx="12" cy="12" rx="9.8" ry="4.1" transform="rotate(58 12 12)"/><circle cx="12" cy="12" r="2.1" fill="currentColor"/></svg></div>
+      <span class="kicker reveal in">Sign Up</span>
+      <h1 class="reveal in">Bring your major. <span class="gradient-text">We'll bring the project.</span></h1>
+      <p class="reveal in">We're getting the Quantum Development Club off the ground at FAU. Sign up below and we'll reach out as things take shape — no quantum background required.</p>
+    </div>
+  </div>
+
+  <section>
+    <div class="container">
+      <form class="form-panel reveal" id="signup-form" action="https://formspree.io/f/your-form-id" method="POST">
+        <div class="section-head" style="margin-bottom:32px;">
+          <h2 style="font-size:26px;">Membership Interest Form</h2>
+          <p style="font-size:15px;">Submissions email straight to the club inbox once this form is connected — see "Connect the form to your email" in README.md (2-minute, one-time setup).</p>
+        </div>
+        <input type="hidden" name="_subject" value="New sign-up — Quantum Development Club">
+        <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+
+        <div class="form-row">
+          <label for="name">Full name</label>
+          <input type="text" id="name" name="name" placeholder="Owl Burrow" required>
+        </div>
+
+        <div class="form-row">
+          <label for="email">FAU email</label>
+          <input type="email" id="email" name="email" placeholder="you@fau.edu" required>
+        </div>
+
+        <div class="form-row">
+          <label for="major">Major &amp; class year</label>
+          <input type="text" id="major" name="major" placeholder="e.g. Computer Science, Sophomore">
+        </div>
+
+        <div class="form-row">
+          <label for="track">Which track interests you most?</label>
+          <select id="track" name="track">
+            <option>Technical Track</option>
+            <option>Business &amp; Strategy Track</option>
+            <option>Creative &amp; Communications Track</option>
+            <option>Not sure yet — help me decide</option>
+          </select>
+        </div>
+
+        <div class="form-row">
+          <label for="experience">Relevant experience or interests</label>
+          <textarea id="experience" name="experience" placeholder="Quantum computing, machine learning, pitching, design, research, whatever brought you here"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-gradient" style="width:100%;">Sign Up</button>
+        <p class="form-note">Prefer email? Reach us directly at <a href="mailto:ktsekhmayste2022@fau.edu" style="color:var(--accent-cyan);">ktsekhmayste2022@fau.edu</a>.</p>
+      </form>
+    </div>
+  </section>
+
+</main>

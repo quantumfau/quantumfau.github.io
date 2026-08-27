@@ -1,99 +1,89 @@
 # Quantum Development Club @ FAU — Launch Plan
 
-This is the working plan behind the prototype website in this repo. It
-covers both the site itself and the broader steps to get the club running.
+This is the working plan behind the website in this repo. It covers both
+the site itself and the broader steps to get the club running.
 
 ## 1. Concept
 
-The Quantum Development Club connects students across three tracks —
-Technical (CS, engineering, physics, math, data science), Business &amp;
-Strategy (finance, management, marketing, economics, policy), and Creative
-&amp; Communications (design, writing, journalism, humanities) — to build real
-quantum computing and applied AI projects, and to turn that work into
-academic credit, conference submissions, and internship leads. The core
-idea driving every page of the site: **no student joins alone, and no major
-is excluded** — every project pod pairs technical depth with strategy and
-storytelling.
+The Quantum Development Club connects students across every discipline —
+technical, business, creative, and beyond — to explore quantum computing
+and applied AI at FAU. It's a brand-new club, so the site is deliberately
+honest about that: it says what the club is and how to join, not more.
 
 ## 2. Website structure (what's built)
 
+Three pages, on purpose:
+
 | Page | Purpose |
 |---|---|
-| Home | Hook, mission summary, track overview, calls to action |
-| About | Mission, who it's for, values |
-| Programs | Technical, Business & Strategy, and Creative & Communications tracks, the semester project cycle |
-| Projects | Example project showcase (placeholder until pods ship real work) |
-| Opportunities | How projects become academic / conference / internship outcomes |
-| Team | Officer roles (placeholder until elected) |
-| Contact | Sponsorship / speaker / media / faculty inquiry form |
-| Join | How to join, meeting info, membership interest form |
+| Home | What the club is, in one breath, with a single call to action |
+| About | Mission and who it's for |
+| Sign Up | Membership interest form |
 
-A proper logo — an "atom orbit" mark (two crossing rings + a center node,
-gradient indigo→cyan) — is now used consistently across the nav, footer,
-favicon, and every page header, with standalone lockup and icon files in
-`assets/` for use off the website (slides, social profiles, printed
-materials).
+Earlier drafts had seven pages — Programs, Projects, Opportunities, Team,
+Contact — full of placeholder officers, invented example projects, and a
+fabricated meeting schedule. All of that got cut. A club this new doesn't
+have a shipped project, an elected officer roster, or a weekly meeting time
+yet, so the site shouldn't claim it does. Add a page back only once it has
+something real to say (see Section 5).
+
+A logo — an "atom orbit" mark (two crossing rings + a center node, gradient
+indigo→cyan) — is used across the nav, footer, favicon, and both page
+headers, with standalone lockup and icon files in `assets/` for use off the
+website (slides, social profiles, printed materials).
 
 Tech choice: **static HTML/CSS/JS**, no framework or build step, deployed
-free on **GitHub Pages**. This was the right call for a student org site —
-zero hosting cost, no server to maintain, easy for future officers with
-any skill level to edit, and trivially version-controlled on GitHub (which
-also doubles as a public signal of the club's technical seriousness).
+free on **GitHub Pages**. Zero hosting cost, no server to maintain, easy
+for future officers with any skill level to edit.
 
-Design direction: dark, minimal, Apple-inspired — big confident type,
-glass panels, a restrained indigo→cyan gradient accent, and a subtle
-animated "quantum lattice" canvas background instead of stock photography.
+Design direction: dark, minimal, Apple-inspired — huge confident type, a
+restrained indigo→cyan→purple gradient accent, generous section spacing,
+and a hero centerpiece that's a genuine hand-built graphic: a rotating 3D
+quantum atom (three tilted, glowing orbit rings around a pulsing nucleus),
+drawn live on canvas rather than a stock photo or static illustration.
 
-## 3. Immediate next steps (before sharing the link publicly)
+## 3. Status
 
-1. Push this repo to GitHub and turn on Pages (exact commands in `README.md`).
-2. Create the free Formspree form ID and drop it into `join.html` and
-   `contact.html` (2-minute one-time setup — see "Connect the forms to
-   your email" in `README.md`). Both forms are already wired to email
-   ktsekhmayste2022@fau.edu once that ID is in place.
-3. Replace placeholder meeting time/location and social links
-   (`_partials/footer.html`, `join.html`) — contact email is already set.
-4. Swap officer placeholders on `team.html` for real names once elected.
-5. Get the club officially registered with FAU Student Government / Owl
+- Repo: https://github.com/kateryna-ts/quantum-dev-club-fau
+- Live: https://kateryna-ts.github.io/quantum-dev-club-fau/
+- Deployed via GitHub Pages from `main`, root folder — a push goes live in
+  a minute or two.
+
+## 4. Immediate next steps
+
+1. Create the free Formspree form ID and drop it into `signup.html` — see
+   "Connect the sign-up form to your email" in `README.md` (2-minute,
+   one-time setup). It's already wired to email ktsekhmayste2022@fau.edu
+   once that ID is in place.
+2. Get the club officially registered with FAU Student Government / Owl
    Central (needed for room bookings, funding requests, and official
-   recognition) — the site can link to your Owl Central page once live.
+   recognition).
+3. Once there's a real meeting time and location, add it to `signup.html`
+   — it's intentionally left out until it's real.
 
-## 4. Content roadmap (first semester)
+## 5. Content roadmap (first semester, and when to expand the site)
 
-- Recruit an initial officer team spanning both technical and business
-  colleges (President, VP Technical, VP Business, Treasurer, Events,
-  Marketing — matches the placeholders on `team.html`).
-- Run 1–2 kickoff info sessions to recruit founding members from CS,
-  physics, engineering, and business departments.
-- Form the first 2–3 project pods and scope one shippable project each
-  (see `programs.html` for the suggested 15-week cycle).
-- Identify 1–2 target outputs per pod early: a student conference
-  (regional quantum computing meetups, undergraduate research
-  symposiums), a case competition, or a faculty-mentored research credit.
-- Start faculty outreach in physics, CS, and business departments for
-  potential advisors and research collaborators.
-- Reach out to potential sponsors (local tech companies, FAU's Tech
-  Runway incubator, quantum computing vendors with academic programs)
-  once there's a project or two to show.
+- Recruit an initial officer team spanning technical, business, and
+  creative colleges. Once there's a real roster, a Team page is worth
+  adding back.
+- Run kickoff info sessions to recruit founding members across
+  departments.
+- Form the first project pod(s) once there's enough interest. Once a pod
+  actually ships something, a Projects page has real content to show —
+  not before.
+- Start faculty outreach for potential advisors and research
+  collaborators.
+- Reach out to potential sponsors (local tech companies, FAU's Tech Runway
+  incubator, quantum computing vendors with academic programs) once there
+  is a project or two to show them.
+- If sponsorship/media/faculty inquiries start coming in through the
+  footer email, that's the signal to add a dedicated Contact page back.
 
-## 5. Growth ideas beyond the prototype (later)
+## 6. What this site intentionally does NOT include
 
-- Blog / project log section once pods start shipping, so the Projects
-  page reflects real work instead of placeholders.
-- Public Discord or Slack, linked from the footer, as the club's real-time
-  hub (the site stays the front door, not the daily tool).
-- A simple internal dashboard for officers to track pod progress against
-  the semester cycle (could be a second, private page or a shared doc —
-  not necessary for the public site).
-- Alumni page once the club has a track record, to support internship
-  and reference networking.
-
-## 6. What this prototype intentionally does NOT include
-
-- No real names, photos, or contact details beyond a placeholder email —
-  avoid publishing anything before it's confirmed accurate.
-- No fabricated stats (membership counts, "founded in ___," etc.) —
-  every number on the site is either structural (e.g., "3 opportunity
-  tracks") or clearly a placeholder to replace.
-- No backend — the "form" on `join.html` needs a real submission endpoint
-  before launch (see step 2 above).
+- No placeholder officers, no invented example projects, no fabricated
+  meeting schedule — anything not real yet is simply left off rather than
+  filled in with a placeholder.
+- No fabricated stats or numbers.
+- No backend — the sign-up form needs a real Formspree ID before it can
+  actually deliver submissions (see Section 4).

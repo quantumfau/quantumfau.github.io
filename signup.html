@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>About | Quantum Development Club at FAU</title>
-<meta name="description" content="Our mission: connect students across every discipline at FAU to build quantum and AI projects together.">
+<title>Sign Up | Quantum Development Club at FAU</title>
+<meta name="description" content="Sign up for the Quantum Development Club at Florida Atlantic University.">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="assets/png/apple-touch-icon.png">
-<meta property="og:title" content="About | Quantum Development Club at FAU">
-<meta property="og:description" content="Our mission: connect students across every discipline at FAU to build quantum and AI projects together.">
+<meta property="og:title" content="Sign Up | Quantum Development Club at FAU">
+<meta property="og:description" content="Sign up for the Quantum Development Club at Florida Atlantic University.">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#000000">
 <link rel="stylesheet" href="css/style.css">
@@ -49,69 +49,55 @@
   <div class="page-header">
     <div class="container">
       <div class="mini-orb reveal in"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><ellipse cx="12" cy="12" rx="9.8" ry="4.1"/><ellipse cx="12" cy="12" rx="9.8" ry="4.1" transform="rotate(58 12 12)"/><circle cx="12" cy="12" r="2.1" fill="currentColor"/></svg></div>
-      <span class="kicker reveal in">About Us</span>
-      <h1 class="reveal in">Every major. <span class="gradient-text">One build.</span></h1>
-      <p class="reveal in">The Quantum Development Club exists to close the gap between the people who can build quantum and AI systems, the people who can make them matter, and the people who can explain them to everyone else.</p>
+      <span class="kicker reveal in">Sign Up</span>
+      <h1 class="reveal in">Bring your major. <span class="gradient-text">We'll bring the project.</span></h1>
+      <p class="reveal in">We're getting the Quantum Development Club off the ground at FAU. Sign up below and we'll reach out as things take shape — no quantum background required.</p>
     </div>
   </div>
 
-  <section class="tight">
-    <div class="container">
-      <div class="grid grid-2" style="align-items:center;gap:48px;">
-        <div class="reveal">
-          <span class="kicker">Our Mission</span>
-          <h2 style="font-size:clamp(26px,3.5vw,36px);margin-bottom:18px;">Connect students across every discipline to build things that leave the classroom.</h2>
-          <p style="font-size:16.5px;">Quantum computing and applied AI are moving fast enough that a student club can do genuinely original work — but only with people who can build it, people who can place it somewhere that matters, and people who can make it land with an audience. We're recruiting across FAU's colleges from the start, on purpose.</p>
-        </div>
-        <div class="card reveal" style="padding:40px;">
-          <span class="card-tag">In one sentence</span>
-          <h3 style="font-size:22px;line-height:1.3;">We're building a home for students from every major who want to work on quantum computing and AI — together.</h3>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <section>
     <div class="container">
-      <div class="section-head">
-        <span class="kicker reveal">Who It's For</span>
-        <h2 class="reveal">You don't need a quantum background to join</h2>
-        <p class="reveal">We're looking for complementary skill sets, not identical resumes.</p>
-      </div>
-      <div class="grid grid-4">
-        <div class="card reveal">
-          <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 17V7a2 2 0 0 1 2-2h5l2 2h7a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2Z"/></svg></div>
-          <h3 style="font-size:17px;">Engineering &amp; CS students</h3>
-          <p style="font-size:14px;">Comfortable in Python and ready to learn quantum SDKs, ML frameworks, or both — no prior quantum coursework required.</p>
+      <form class="form-panel reveal" id="signup-form" action="https://formspree.io/f/your-form-id" method="POST">
+        <div class="section-head" style="margin-bottom:32px;">
+          <h2 style="font-size:26px;">Membership Interest Form</h2>
+          <p style="font-size:15px;">Submissions email straight to the club inbox once this form is connected — see "Connect the form to your email" in README.md (2-minute, one-time setup).</p>
         </div>
-        <div class="card reveal">
-          <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="8" r="3.2"/><path d="M5 20c0-3.5 3.1-6 7-6s7 2.5 7 6"/></svg></div>
-          <h3 style="font-size:17px;">Physics, math &amp; science students</h3>
-          <p style="font-size:14px;">Bring the theory — quantum mechanics, linear algebra, biology, chemistry — and help teams reason about what's actually possible.</p>
-        </div>
-        <div class="card reveal">
-          <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 17h4l3-9 4 14 3-9h4"/></svg></div>
-          <h3 style="font-size:17px;">Business, finance &amp; policy students</h3>
-          <p style="font-size:14px;">Own the research, pitch, and strategy that gets a technical idea noticed and funded.</p>
-        </div>
-        <div class="card reveal">
-          <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3v3m0 12v3m9-9h-3M6 12H3m14.5-6.5-2 2m-9 9-2 2m0-13 2 2m9 9 2 2"/><circle cx="12" cy="12" r="3.2"/></svg></div>
-          <h3 style="font-size:17px;">Design &amp; communications students</h3>
-          <p style="font-size:14px;">Own the visuals, writing, and story that make a technical idea click for an audience beyond the club.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+        <input type="hidden" name="_subject" value="New sign-up — Quantum Development Club">
+        <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
 
-  <section>
-    <div class="container">
-      <div class="cta-band reveal">
-        <h2>Want to help build this from the ground up?</h2>
-        <p>We're just getting started — sign up and we'll reach out as the club takes shape.</p>
-        <div class="hero-actions">
-          <a href="signup.html" class="btn btn-gradient">Sign Up</a>
+        <div class="form-row">
+          <label for="name">Full name</label>
+          <input type="text" id="name" name="name" placeholder="Owl Burrow" required>
         </div>
-      </div>
+
+        <div class="form-row">
+          <label for="email">FAU email</label>
+          <input type="email" id="email" name="email" placeholder="you@fau.edu" required>
+        </div>
+
+        <div class="form-row">
+          <label for="major">Major &amp; class year</label>
+          <input type="text" id="major" name="major" placeholder="e.g. Computer Science, Sophomore">
+        </div>
+
+        <div class="form-row">
+          <label for="track">Which track interests you most?</label>
+          <select id="track" name="track">
+            <option>Technical Track</option>
+            <option>Business &amp; Strategy Track</option>
+            <option>Creative &amp; Communications Track</option>
+            <option>Not sure yet — help me decide</option>
+          </select>
+        </div>
+
+        <div class="form-row">
+          <label for="experience">Relevant experience or interests</label>
+          <textarea id="experience" name="experience" placeholder="Quantum computing, machine learning, pitching, design, research, whatever brought you here"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-gradient" style="width:100%;">Sign Up</button>
+        <p class="form-note">Prefer email? Reach us directly at <a href="mailto:ktsekhmayste2022@fau.edu" style="color:var(--accent-cyan);">ktsekhmayste2022@fau.edu</a>.</p>
+      </form>
     </div>
   </section>
 
