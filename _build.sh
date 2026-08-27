@@ -16,6 +16,6 @@ build_page () {
 
 build_page "index"   "Quantum Development Club | Florida Atlantic University" "FAU's new student club connecting every discipline to build quantum computing and AI projects."
 build_page "about"   "About | Quantum Development Club at FAU" "Our mission: connect students across every discipline at FAU to build quantum and AI projects together."
-build_page "signup"  "Sign Up | Quantum Development Club at FAU" "Sign up for the Quantum Development Club at Florida Atlantic University."
+build_page "contact" "Contact | Quantum Development Club at FAU" "Get in touch with the Quantum Development Club at Florida Atlantic University, or sign up to join."
 
 echo "All pages built."

@@ -18,11 +18,11 @@ Three pages, on purpose:
 |---|---|
 | Home | What the club is, in one breath, with a single call to action |
 | About | Mission and who it's for |
-| Sign Up | Membership interest form |
+| Contact | Contact info + membership interest form |
 
 Earlier drafts had seven pages — Programs, Projects, Opportunities, Team,
-Contact — full of placeholder officers, invented example projects, and a
-fabricated meeting schedule. All of that got cut. A club this new doesn't
+a separate Contact page — full of placeholder officers, invented example
+projects, and a fabricated meeting schedule. All of that got cut. A club this new doesn't
 have a shipped project, an elected officer roster, or a weekly meeting time
 yet, so the site shouldn't claim it does. Add a page back only once it has
 something real to say (see Section 5).
@@ -51,14 +51,14 @@ drawn live on canvas rather than a stock photo or static illustration.
 
 ## 4. Immediate next steps
 
-1. Create the free Formspree form ID and drop it into `signup.html` — see
-   "Connect the sign-up form to your email" in `README.md` (2-minute,
+1. Create the free Formspree form ID and drop it into `contact.html` — see
+   "Connect the contact form to your email" in `README.md` (2-minute,
    one-time setup). It's already wired to email ktsekhmayste2022@fau.edu
    once that ID is in place.
 2. Get the club officially registered with FAU Student Government / Owl
    Central (needed for room bookings, funding requests, and official
    recognition).
-3. Once there's a real meeting time and location, add it to `signup.html`
+3. Once there's a real meeting time and location, add it to `contact.html`
    — it's intentionally left out until it's real.
 
 ## 5. Content roadmap (first semester, and when to expand the site)
@@ -76,8 +76,6 @@ drawn live on canvas rather than a stock photo or static illustration.
 - Reach out to potential sponsors (local tech companies, FAU's Tech Runway
   incubator, quantum computing vendors with academic programs) once there
   is a project or two to show them.
-- If sponsorship/media/faculty inquiries start coming in through the
-  footer email, that's the signal to add a dedicated Contact page back.
 
 ## 6. What this site intentionally does NOT include
 
@@ -85,5 +83,5 @@ drawn live on canvas rather than a stock photo or static illustration.
   meeting schedule — anything not real yet is simply left off rather than
   filled in with a placeholder.
 - No fabricated stats or numbers.
-- No backend — the sign-up form needs a real Formspree ID before it can
+- No backend — the contact form needs a real Formspree ID before it can
   actually deliver submissions (see Section 4).

@@ -17,7 +17,7 @@ that are actually true right now:
 |---|---|
 | `index.html` | Home — what the club is, one sentence, one call to action |
 | `about.html` | Mission and who it's for |
-| `signup.html` | Membership interest form |
+| `contact.html` | Contact info + membership interest form |
 
 ## Project structure
 
@@ -25,7 +25,7 @@ that are actually true right now:
 .
 ├── index.html            Home
 ├── about.html             Mission, who it's for
-├── signup.html            Membership interest form
+├── contact.html           Contact info + membership interest form
 ├── css/style.css          Design system (dark, Apple-inspired theme)
 ├── js/main.js             Nav toggle, scroll reveals, rotating 3D atom visual
 ├── assets/favicon.svg           Site icon (quantum "atom" mark)
@@ -68,9 +68,9 @@ git commit -m "describe the change"
 git push
 ```
 
-## Connect the sign-up form to your email
+## Connect the contact form to your email
 
-The form on `signup.html` posts to [Formspree](https://formspree.io), a free
+The form on `contact.html` posts to [Formspree](https://formspree.io), a free
 service that emails you every submission with no backend of your own to run.
 It needs a one-time, ~2-minute setup:
 
@@ -79,9 +79,9 @@ It needs a one-time, ~2-minute setup:
    as the form's notification email in step 3).
 2. Click **New Form**, name it (e.g. "QDC Sign-Ups"), and copy the endpoint
    it gives you — it looks like `https://formspree.io/f/abcd1234`.
-3. In `_content/signup.html`, replace `your-form-id` in
+3. In `_content/contact.html`, replace `your-form-id` in
    `action="https://formspree.io/f/your-form-id"` with your real ID.
-4. Run `./_build.sh` to regenerate `signup.html` with the updated action
+4. Run `./_build.sh` to regenerate `contact.html` with the updated action
    URL, then commit and push.
 5. Submit the form once yourself — Formspree sends a one-time confirmation
    email the first time; after you confirm, every future submission is
@@ -116,9 +116,8 @@ home-screen icons, and PNG copies of both lockups.
 
 Add pages back only as they'd have something real to say — a Projects page
 once a pod has actually shipped something, a Team page once officers are
-elected, a Contact page if inquiries outgrow the footer email. Resist
-filling pages with placeholder people or example projects; an honest
-three-page site beats an elaborate one that isn't true yet.
+elected. Resist filling pages with placeholder people or example projects;
+an honest three-page site beats an elaborate one that isn't true yet.
 
 ## License
 
