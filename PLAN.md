@@ -44,8 +44,8 @@ drawn live on canvas rather than a stock photo or static illustration.
 
 ## 3. Status
 
-- Repo: https://github.com/kateryna-ts/quantum-dev-club-fau
-- Live: https://kateryna-ts.github.io/quantum-dev-club-fau/
+- Repo: https://github.com/quantumfau/quantumfau.github.io
+- Live: https://quantumfau.github.io/
 - Deployed via GitHub Pages from `main`, root folder — a push goes live in
   a minute or two.
 

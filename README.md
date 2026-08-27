@@ -7,8 +7,8 @@ explore quantum computing and applied AI.
 Plain HTML/CSS/JS, no build tools or frameworks required. Hosted free on
 **GitHub Pages**.
 
-**Live site:** https://kateryna-ts.github.io/quantum-dev-club-fau/
-**Repo:** https://github.com/kateryna-ts/quantum-dev-club-fau
+**Live site:** https://quantumfau.github.io/
+**Repo:** https://github.com/quantumfau/quantumfau.github.io
 
 Three pages, on purpose — this is a new club, so the site only says things
 that are actually true right now:
