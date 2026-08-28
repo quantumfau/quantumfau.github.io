@@ -119,10 +119,10 @@
     // Legibility veil: darken the top band (hero text) and the very bottom,
     // leaving the machine's midsection at full brightness.
     var veil = ctx.createLinearGradient(0, 0, 0, H);
-    veil.addColorStop(0.0, "rgba(0,0,0,0.66)");
-    veil.addColorStop(0.34, "rgba(0,0,0,0.14)");
-    veil.addColorStop(0.72, "rgba(0,0,0,0.12)");
-    veil.addColorStop(1.0, "rgba(0,0,0,0.5)");
+    veil.addColorStop(0.0, "rgba(0,0,0,0.72)");
+    veil.addColorStop(0.3, "rgba(0,0,0,0.36)");
+    veil.addColorStop(0.7, "rgba(0,0,0,0.34)");
+    veil.addColorStop(1.0, "rgba(0,0,0,0.58)");
     ctx.fillStyle = veil;
     ctx.fillRect(0, 0, W, H);
   }

@@ -262,8 +262,18 @@ p { margin: 0; color: var(--text-secondary); line-height: 1.6; font-size: 17px; 
   max-width: 620px;
   margin: 24px auto 0;
   font-size: clamp(18px, 2.2vw, 24px);
-  font-weight: 400;
-  color: var(--text-secondary);
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+/* Lift key copy off the photographic background for legibility */
+.hero h1,
+.hero p.lede,
+.section-head h2,
+.section-head p,
+.cta-band h2,
+.cta-band p {
+  text-shadow: 0 2px 22px rgba(0, 0, 0, 0.6), 0 1px 4px rgba(0, 0, 0, 0.45);
 }
 
 .hero-actions {
