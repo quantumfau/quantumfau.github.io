@@ -21,12 +21,12 @@
   --text-tertiary: rgba(245, 245, 247, 0.45);
 
   /* Accent — quantum indigo → cyan, plus Apple's dark-mode link blue */
-  --accent-indigo: #5e5ce6;
-  --accent-cyan: #64d2ff;
-  --accent-purple: #bf5af2;
-  --link-blue: #2997ff;
-  --accent-gradient: linear-gradient(100deg, var(--accent-indigo) 0%, var(--accent-cyan) 100%);
-  --accent-gradient-soft: linear-gradient(135deg, rgba(94, 92, 230, 0.35), rgba(100, 210, 255, 0.35));
+  --accent-indigo: #7b5cff;
+  --accent-cyan: #22e6ff;
+  --accent-purple: #c15cff;
+  --link-blue: #3aa0ff;
+  --accent-gradient: linear-gradient(100deg, #8f5cff 0%, #3f9bff 46%, #22e6ff 100%);
+  --accent-gradient-soft: linear-gradient(135deg, rgba(123, 92, 255, 0.42), rgba(34, 230, 255, 0.42));
 
   /* Type — SF Pro stack, Apple falls back to this exact chain */
   --font-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Inter, ui-sans-serif, sans-serif;
@@ -95,9 +95,9 @@ p { margin: 0; color: var(--text-secondary); line-height: 1.6; font-size: 17px; 
   width: 1100px; height: 620px;
   transform: translateX(-50%);
   background:
-    radial-gradient(38% 55% at 28% 35%, rgba(94, 92, 230, 0.28), rgba(0,0,0,0) 100%),
-    radial-gradient(32% 50% at 72% 40%, rgba(100, 210, 255, 0.22), rgba(0,0,0,0) 100%),
-    radial-gradient(30% 45% at 50% 70%, rgba(191, 90, 242, 0.14), rgba(0,0,0,0) 100%);
+    radial-gradient(38% 55% at 28% 35%, rgba(123, 92, 255, 0.4), rgba(0,0,0,0) 100%),
+    radial-gradient(32% 50% at 72% 40%, rgba(34, 230, 255, 0.32), rgba(0,0,0,0) 100%),
+    radial-gradient(30% 45% at 50% 70%, rgba(193, 92, 255, 0.22), rgba(0,0,0,0) 100%);
   filter: blur(10px);
   pointer-events: none;
 }
