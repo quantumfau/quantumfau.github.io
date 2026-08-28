@@ -38,9 +38,10 @@ for future officers with any skill level to edit.
 
 Design direction: dark, minimal, Apple-inspired — huge confident type, a
 restrained indigo→cyan→purple gradient accent, generous section spacing,
-and a hero centerpiece that's a genuine hand-built graphic: a rotating 3D
-quantum atom (three tilted, glowing orbit rings around a pulsing nucleus),
-drawn live on canvas rather than a stock photo or static illustration.
+and a genuine hand-built graphic behind the whole home page: a stylized
+quantum-computer cryostat (stacked disks joined by wire looms) that
+separates into exploded levels as the page is scrolled, drawn live on
+canvas rather than a stock photo or static illustration.
 
 ## 3. Status
 

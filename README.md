@@ -27,7 +27,7 @@ that are actually true right now:
 ├── about.html             Mission, who it's for
 ├── contact.html           Contact info + membership interest form
 ├── css/style.css          Design system (dark, Apple-inspired theme)
-├── js/main.js             Nav toggle, scroll reveals, rotating 3D atom visual
+├── js/main.js             Nav toggle, scroll reveals, scroll-driven quantum-computer background
 ├── assets/favicon.svg           Site icon (quantum "atom" mark)
 ├── assets/logo-mark.svg         Icon only, transparent background
 ├── assets/logo-lockup-dark.svg  Icon + wordmark, for dark backgrounds
@@ -105,10 +105,12 @@ home-screen icons, and PNG copies of both lockups.
 
 - Single shared stylesheet (`css/style.css`) using CSS custom properties —
   change the values in `:root` to retheme the whole site.
-- The hero visual (`#qc-bg` canvas, driven by `js/main.js`) is a rotating
-  3D quantum-atom animation — three tilted orbit rings around a glowing
-  nucleus, hand-rolled with no external libraries, and it respects
-  `prefers-reduced-motion`.
+- The home page background (`#qc-levels-bg` canvas, driven by `js/main.js`)
+  is a stylized quantum-computer cryostat — stacked disks joined by wire
+  looms — that separates into exploded "levels" as the page is scrolled,
+  hand-rolled with no external libraries. It respects
+  `prefers-reduced-motion` (no idle animation loop; it still redraws in
+  direct response to the user's own scrolling).
 - No frameworks, build step, or npm dependencies — easy for future officers
   to maintain regardless of their technical background.
 

@@ -2,7 +2,7 @@
    Quantum Development Club @ FAU — site behavior
    - Mobile nav toggle
    - Scroll-reveal animations
-   - Rotating 3D quantum atom visual (hero centerpiece)
+   - Full-page quantum-computer background that explodes into levels on scroll
    ========================================================= */
 
 (function () {
@@ -54,167 +54,189 @@
     revealEls.forEach(function (el) { el.classList.add("in"); });
   }
 
-  /* ---------- Hero visual parallax (subtle Apple-style scale/fade) ---------- */
-  var heroVisual = document.querySelector(".hero-visual");
-  if (heroVisual && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    var ticking = false;
-    window.addEventListener(
-      "scroll",
-      function () {
-        if (ticking) return;
-        ticking = true;
-        requestAnimationFrame(function () {
-          var rect = heroVisual.getBoundingClientRect();
-          var vh = window.innerHeight;
-          var progress = Math.min(Math.max((vh - rect.top) / (vh * 1.1), 0), 1);
-          var scale = 1 - progress * 0.06;
-          var opacity = 1 - progress * 0.35;
-          heroVisual.style.transform = "scale(" + scale + ")";
-          heroVisual.style.opacity = opacity;
-          ticking = false;
-        });
-      },
-      { passive: true }
-    );
-  }
-
-  /* ---------- Rotating 3D quantum atom visual ---------- */
-  var canvas = document.getElementById("qc-bg");
+  /* ---------- Full-page quantum-computer background (home only) ----------
+     A stylized cryostat: stacked disks ("levels") joined by looms of thin
+     wires, drawn full-viewport and pinned behind every section. Scrolling
+     the page — in either direction — drives how far the levels have
+     separated, as if the machine is opening up the further you scroll. */
+  var canvas = document.getElementById("qc-levels-bg");
   if (!canvas || !canvas.getContext) return;
 
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var ctx = canvas.getContext("2d");
-  var W, H, DPR, CX, CY, FOCAL, SCALE;
+  var W, H, DPR;
   var t = 0;
+  var targetProgress = 0;
+  var currentProgress = 0;
 
-  // Three orbit rings, tilted at different angles, each carrying points
-  // that trace the ring as it rotates in 3D — a stylized quantum atom.
-  var RINGS = [
-    { tiltX: 0.55, tiltZ: 0.0, color: [94, 92, 230], speed: 1.0 },
-    { tiltX: -0.45, tiltZ: 2.05, color: [100, 210, 255], speed: 0.8 },
-    { tiltX: 0.25, tiltZ: -2.05, color: [191, 90, 242], speed: 1.25 }
+  var LEVELS = [
+    { r: 1.0, color: [214, 219, 230] },   // top plate — cool silver
+    { r: 0.8, color: [148, 150, 220] },   // indigo drifting in
+    { r: 0.62, color: [94, 92, 230] },    // accent-indigo
+    { r: 0.46, color: [100, 210, 255] },  // accent-cyan
+    { r: 0.32, color: [191, 90, 242] }    // accent-purple, nearest the chip
   ];
-  var POINTS_PER_RING = 64;
-  var RING_R = 1;
+  var WIRES_PER_GAP = 12;
 
   function resize() {
     DPR = Math.min(window.devicePixelRatio || 1, 2);
-    var box = canvas.parentElement.getBoundingClientRect();
-    var cw = box.width || window.innerWidth;
-    var ch = box.height || window.innerHeight * 0.5;
+    var cw = window.innerWidth;
+    var ch = window.innerHeight;
     W = canvas.width = cw * DPR;
     H = canvas.height = ch * DPR;
     canvas.style.width = cw + "px";
     canvas.style.height = ch + "px";
-    CX = W / 2;
-    CY = H / 2;
-    SCALE = Math.min(W, H) * 0.34;
-    FOCAL = Math.min(W, H) * 1.15;
   }
 
-  // Rotate a unit-sphere point by the ring's fixed tilt, then by the
-  // scene's animated yaw/pitch, and perspective-project to 2D.
-  function project(x, y, z, yaw, pitch) {
-    // yaw (around Y axis)
-    var cosY = Math.cos(yaw), sinY = Math.sin(yaw);
-    var x1 = x * cosY + z * sinY;
-    var z1 = -x * sinY + z * cosY;
-    // pitch (around X axis)
-    var cosP = Math.cos(pitch), sinP = Math.sin(pitch);
-    var y2 = y * cosP - z1 * sinP;
-    var z2 = y * sinP + z1 * cosP;
-
-    var scale = FOCAL / (FOCAL + z2 * SCALE);
-    return {
-      x: CX + x1 * SCALE * scale,
-      y: CY + y2 * SCALE * scale,
-      scale: scale,
-      z: z2
-    };
+  function scrollProgress() {
+    var scrubDistance = window.innerHeight * 1.4;
+    return Math.min(Math.max(window.scrollY / scrubDistance, 0), 1);
   }
 
-  function ringPoint(ring, angle) {
-    // Point on a unit circle in the ring's own tilted plane
-    var x = Math.cos(angle) * RING_R;
-    var y = Math.sin(angle) * RING_R;
-    var z = 0;
-    // tilt around X
-    var cosX = Math.cos(ring.tiltX), sinX = Math.sin(ring.tiltX);
-    var y1 = y * cosX - z * sinX;
-    var z1 = y * sinX + z * cosX;
-    // tilt around Z
-    var cosZ = Math.cos(ring.tiltZ), sinZ = Math.sin(ring.tiltZ);
-    var x2 = x * cosZ - y1 * sinZ;
-    var y2 = x * sinZ + y1 * cosZ;
-    return { x: x2, y: y2, z: z1 };
-  }
-
-  function step() {
-    ctx.clearRect(0, 0, W, H);
-
-    var yaw = t * 0.25;
-    var pitch = 0.18 + Math.sin(t * 0.15) * 0.12;
-
-    RINGS.forEach(function (ring) {
-      var pts = [];
-      for (var i = 0; i <= POINTS_PER_RING; i++) {
-        var angle = (i / POINTS_PER_RING) * Math.PI * 2 + t * ring.speed * 0.35;
-        var p = ringPoint(ring, angle);
-        pts.push(project(p.x, p.y, p.z, yaw, pitch));
-      }
-
-      // Draw the ring path, segment opacity/width driven by depth (z)
-      for (var s = 0; s < pts.length - 1; s++) {
-        var a = pts[s], b = pts[s + 1];
-        var depth = (a.scale - 0.7) / 0.6; // ~0 (far) to ~1 (near)
-        depth = Math.max(0.08, Math.min(1, depth));
-        ctx.strokeStyle = "rgba(" + ring.color[0] + "," + ring.color[1] + "," + ring.color[2] + "," + (depth * 0.85) + ")";
-        ctx.lineWidth = (0.6 + depth * 1.8) * DPR;
-        ctx.beginPath();
-        ctx.moveTo(a.x, a.y);
-        ctx.lineTo(b.x, b.y);
-        ctx.stroke();
-      }
-
-      // A bright traveling node riding each ring
-      var headAngle = t * ring.speed * 0.35;
-      var hp = ringPoint(ring, headAngle);
-      var proj = project(hp.x, hp.y, hp.z, yaw, pitch);
-      var headDepth = Math.max(0.25, Math.min(1, (proj.scale - 0.7) / 0.6));
-      var r = (2.6 + headDepth * 2.6) * DPR;
-      var glowGrad = ctx.createRadialGradient(proj.x, proj.y, 0, proj.x, proj.y, r * 4);
-      glowGrad.addColorStop(0, "rgba(" + ring.color[0] + "," + ring.color[1] + "," + ring.color[2] + "," + (0.9 * headDepth) + ")");
-      glowGrad.addColorStop(1, "rgba(" + ring.color[0] + "," + ring.color[1] + "," + ring.color[2] + ",0)");
-      ctx.fillStyle = glowGrad;
+  function drawLevel(cx, cy, radiusPx, tiltY, color, alpha, glow) {
+    ctx.save();
+    ctx.translate(cx, cy);
+    ctx.scale(1, tiltY);
+    if (glow) {
+      var g = ctx.createRadialGradient(0, 0, radiusPx * 0.2, 0, 0, radiusPx * 1.4);
+      g.addColorStop(0, "rgba(" + color[0] + "," + color[1] + "," + color[2] + "," + (alpha * 0.35) + ")");
+      g.addColorStop(1, "rgba(" + color[0] + "," + color[1] + "," + color[2] + ",0)");
+      ctx.fillStyle = g;
       ctx.beginPath();
-      ctx.arc(proj.x, proj.y, r * 4, 0, Math.PI * 2);
+      ctx.arc(0, 0, radiusPx * 1.4, 0, Math.PI * 2);
       ctx.fill();
-      ctx.fillStyle = "rgba(255,255,255," + (0.85 * headDepth + 0.15) + ")";
-      ctx.beginPath();
-      ctx.arc(proj.x, proj.y, r, 0, Math.PI * 2);
-      ctx.fill();
-    });
-
-    // Glowing nucleus at the center
-    var nucleusR = 7 * DPR + Math.sin(t * 1.6) * 1.2 * DPR;
-    var nucleusGrad = ctx.createRadialGradient(CX, CY, 0, CX, CY, nucleusR * 5);
-    nucleusGrad.addColorStop(0, "rgba(210,215,255,0.95)");
-    nucleusGrad.addColorStop(0.35, "rgba(120,120,235,0.5)");
-    nucleusGrad.addColorStop(1, "rgba(100,110,230,0)");
-    ctx.fillStyle = nucleusGrad;
+    }
+    ctx.strokeStyle = "rgba(" + color[0] + "," + color[1] + "," + color[2] + "," + alpha + ")";
+    ctx.lineWidth = 1.6 * DPR;
     ctx.beginPath();
-    ctx.arc(CX, CY, nucleusR * 5, 0, Math.PI * 2);
+    ctx.arc(0, 0, radiusPx, 0, Math.PI * 2);
+    ctx.stroke();
+    // Rim highlight
+    ctx.strokeStyle = "rgba(255,255,255," + (alpha * 0.4) + ")";
+    ctx.lineWidth = 0.6 * DPR;
+    ctx.beginPath();
+    ctx.arc(0, 0, radiusPx * 0.985, Math.PI * 1.08, Math.PI * 1.9);
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  function drawWires(cx, y1, r1, y2, r2, tiltY, color, alpha, sway) {
+    for (var i = 0; i < WIRES_PER_GAP; i++) {
+      var angle = (i / WIRES_PER_GAP) * Math.PI * 2;
+      var wobble = Math.sin(angle * 3 + sway) * 0.06 + 1;
+      var x1 = cx + Math.cos(angle) * r1;
+      var yy1 = y1 + Math.sin(angle) * r1 * tiltY;
+      var x2 = cx + Math.cos(angle) * r2;
+      var yy2 = y2 + Math.sin(angle) * r2 * tiltY;
+      var bowX = cx + Math.cos(angle) * ((r1 + r2) / 2) * 1.16 * wobble;
+      var midY = (yy1 + yy2) / 2;
+      ctx.strokeStyle = "rgba(" + color[0] + "," + color[1] + "," + color[2] + "," + alpha + ")";
+      ctx.lineWidth = 0.55 * DPR;
+      ctx.beginPath();
+      ctx.moveTo(x1, yy1);
+      ctx.bezierCurveTo(bowX, yy1 + (midY - yy1) * 0.6, bowX, yy2 - (yy2 - midY) * 0.6, x2, yy2);
+      ctx.stroke();
+    }
+  }
+
+  function render() {
+    var p = currentProgress;
+
+    // Dim near-black backdrop — matches the site's base black, so the
+    // machine reads as glowing metal against dark rather than a bright box.
+    ctx.fillStyle = "#020204";
+    ctx.fillRect(0, 0, W, H);
+
+    var cx = W / 2 + Math.sin(t * 0.12) * W * 0.01;
+    var tiltY = 0.32;
+    var zoom = 1 + p * 0.22;
+    var baseR = Math.min(W, H) * 0.2 * zoom;
+    var baseGap = H * 0.075;
+    var extraGap = H * 0.2;
+    var gap = baseGap + p * extraGap;
+    var n = LEVELS.length;
+    var totalHeight = (n - 1) * gap;
+    var startY = H / 2 - totalHeight / 2 - H * 0.06;
+
+    var positions = [];
+    for (var i = 0; i < n; i++) {
+      positions.push(startY + i * gap);
+    }
+
+    // Wire looms first, so the disks draw cleanly on top of them.
+    for (i = 0; i < n - 1; i++) {
+      var lvA = LEVELS[i], lvB = LEVELS[i + 1];
+      drawWires(
+        cx,
+        positions[i], lvA.r * baseR,
+        positions[i + 1], lvB.r * baseR,
+        tiltY,
+        [(lvA.color[0] + lvB.color[0]) / 2, (lvA.color[1] + lvB.color[1]) / 2, (lvA.color[2] + lvB.color[2]) / 2],
+        0.16 + p * 0.1,
+        t * 2 + i
+      );
+    }
+
+    for (i = 0; i < n; i++) {
+      var lv = LEVELS[i];
+      drawLevel(cx, positions[i], lv.r * baseR, tiltY, lv.color, 0.55 + p * 0.15, i === n - 1);
+    }
+
+    // A small glowing chip beneath the last level — the "qubits" themselves.
+    var chipY = positions[n - 1] + gap * 0.42;
+    var chipR = (5 + Math.sin(t * 1.6) * 1) * DPR;
+    var chipGrad = ctx.createRadialGradient(cx, chipY, 0, cx, chipY, chipR * 6);
+    chipGrad.addColorStop(0, "rgba(210,215,255,0.9)");
+    chipGrad.addColorStop(0.35, "rgba(150,120,235,0.45)");
+    chipGrad.addColorStop(1, "rgba(100,110,230,0)");
+    ctx.fillStyle = chipGrad;
+    ctx.beginPath();
+    ctx.arc(cx, chipY, chipR * 6, 0, Math.PI * 2);
     ctx.fill();
     ctx.fillStyle = "#f5f5ff";
     ctx.beginPath();
-    ctx.arc(CX, CY, nucleusR, 0, Math.PI * 2);
+    ctx.arc(cx, chipY, chipR, 0, Math.PI * 2);
     ctx.fill();
+  }
 
-    t += 0.012;
-    if (!reduceMotion) requestAnimationFrame(step);
+  function animate() {
+    currentProgress += (targetProgress - currentProgress) * 0.07;
+    t += 0.01;
+    render();
+    requestAnimationFrame(animate);
   }
 
   window.addEventListener("resize", resize, { passive: true });
   resize();
-  step();
+  targetProgress = currentProgress = scrollProgress();
+  render();
+
+  if (reduceMotion) {
+    // No autoplaying animation loop — redraw only in direct response to
+    // the user's own scroll or a viewport resize.
+    window.addEventListener(
+      "scroll",
+      function () {
+        currentProgress = scrollProgress();
+        render();
+      },
+      { passive: true }
+    );
+    window.addEventListener("resize", render, { passive: true });
+  } else {
+    var scrollTicking = false;
+    window.addEventListener(
+      "scroll",
+      function () {
+        if (scrollTicking) return;
+        scrollTicking = true;
+        requestAnimationFrame(function () {
+          targetProgress = scrollProgress();
+          scrollTicking = false;
+        });
+      },
+      { passive: true }
+    );
+    requestAnimationFrame(animate);
+  }
 })();

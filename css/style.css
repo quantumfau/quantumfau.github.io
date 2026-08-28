@@ -210,9 +210,16 @@ p { margin: 0; color: var(--text-secondary); line-height: 1.6; font-size: 17px; 
 .hero {
   position: relative;
   z-index: 1;
-  padding: calc(var(--nav-height) + 84px) 0 0;
+  min-height: 92vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: calc(var(--nav-height) + 40px) 0 110px;
   text-align: center;
   overflow: hidden;
+}
+@media (max-width: 700px) {
+  .hero { min-height: 82vh; padding-bottom: 72px; }
 }
 
 .eyebrow {
@@ -268,47 +275,20 @@ p { margin: 0; color: var(--text-secondary); line-height: 1.6; font-size: 17px; 
   flex-wrap: wrap;
 }
 
-/* Hero visual — the "product shot": a large glass panel housing
-   the live quantum lattice canvas, framed like an Apple device shot. */
-.hero-visual {
-  position: relative;
-  margin: 56px auto 0;
-  max-width: 980px;
-  height: clamp(280px, 42vw, 560px);
-  border-radius: var(--radius-xl);
-  overflow: hidden;
-  border: 1px solid var(--border-subtle);
-  background:
-    radial-gradient(120% 140% at 20% 10%, rgba(94,92,230,0.35), rgba(0,0,0,0) 55%),
-    radial-gradient(120% 140% at 85% 90%, rgba(100,210,255,0.28), rgba(0,0,0,0) 55%),
-    linear-gradient(180deg, #0c0c10 0%, #000 100%);
-  box-shadow: 0 60px 140px -40px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(255,255,255,0.02) inset;
-}
-.hero-visual::after {
-  content: "";
-  position: absolute;
+/* ---------- Full-page quantum-computer background (home page only) ----------
+   A fixed, viewport-covering canvas sitting behind every section on the
+   home page — a stylized quantum-computer cryostat (stacked disks joined
+   by wire looms) that separates into exploded "levels" as the page is
+   scrolled. It paints its own dim backdrop, so no separate overlay is
+   needed for text legibility. */
+#qc-levels-bg {
+  position: fixed;
   inset: 0;
-  background: linear-gradient(160deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0) 30%);
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
   pointer-events: none;
 }
-.hero-visual #qc-bg {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-}
-.hero-visual .visual-caption {
-  position: absolute;
-  left: 0; right: 0; bottom: 0;
-  padding: 20px 28px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 12.5px;
-  color: var(--text-tertiary);
-  background: linear-gradient(0deg, rgba(0,0,0,0.55), rgba(0,0,0,0));
-}
-.hero-visual .visual-caption strong { color: var(--text-secondary); font-weight: 600; }
 
 /* Small ambient orb used at the top of interior page headers */
 .mini-orb {
