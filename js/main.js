@@ -59,11 +59,10 @@
 
      A real photographic render of a dilution-refrigerator quantum computer
      (freely-licensed, via Wikimedia Commons) is drawn full-viewport, pinned
-     behind every section. The image is cut into horizontal segments along
-     the natural gaps between its cooling plates; scrolling the page — in
-     either direction — pulls those segments apart, so the machine appears to
-     separate into its stacked levels the further you scroll. The plates
-     themselves are never distorted, so the object stays photo-real.
+     behind every section. The whole image stays intact — never sliced.
+     Scrolling drives a slow zoom plus a gentle downward pan, so it feels like
+     you're descending into the cryostat toward the qubit chip at the bottom:
+     cinematic, always photo-real, no seams.
      ================================================================ */
   var canvas = document.getElementById("qc-levels-bg");
   if (!canvas || !canvas.getContext) return;
@@ -80,12 +79,6 @@
   img.onload = function () { imgReady = true; render(); };
   img.src = "assets/img/quantum-computer.webp";
   var IMG_AR = 960 / 1920; // native aspect (w/h)
-
-  // Cut lines (fractions of image height), chosen to fall in the dark gaps
-  // just above each cooling plate, so every segment carries a plate plus the
-  // wires hanging beneath it. Pulling a segment down lets those wires dangle
-  // into the opening — reading as the stack stretching apart.
-  var SEAMS = [0, 0.25, 0.40, 0.52, 0.61, 1];
 
   function resize() {
     DPR = Math.min(window.devicePixelRatio || 1, 2);
@@ -110,27 +103,17 @@
 
     if (imgReady) {
       var p = currentProgress;
-      var zoom = 1 + p * 0.12;
-
-      // "Contain" the image in the viewport (fit by height, but never wider
-      // than the screen), then apply the scroll zoom.
-      var baseH = Math.min(H * 0.96, (W * 0.96) / IMG_AR) * zoom;
-      var drawW = baseH * IMG_AR;
-      var x = (W - drawW) / 2 + Math.sin(t * 0.4) * W * 0.004; // faint drift
-
-      var gap = p * H * 0.11;                 // per-seam separation
-      var nSeg = SEAMS.length - 1;
-      var totalH = baseH + gap * (nSeg - 1);
-      var cursorY = (H - totalH) / 2 - H * 0.02;
-
-      for (var i = 0; i < nSeg; i++) {
-        var s0 = SEAMS[i], s1 = SEAMS[i + 1];
-        var srcY = s0 * 1920;
-        var srcH = (s1 - s0) * 1920;
-        var dH = (s1 - s0) * baseH;
-        ctx.drawImage(img, 0, srcY, 960, srcH, x, cursorY, drawW, dH);
-        cursorY += dH + gap;
-      }
+      // Whole machine, never sliced. A slow zoom-in plus a gentle downward
+      // pan makes it feel like you're descending into the cryostat toward the
+      // qubit chip as you scroll — smooth and cinematic, no seams.
+      var idle = 1 + Math.sin(t * 0.5) * 0.006;            // faint breathing
+      var scale = (1 + p * 0.26) * idle;
+      var containH = Math.min(H * 0.985, (W * 0.985) / IMG_AR);
+      var drawH = containH * scale;
+      var drawW = drawH * IMG_AR;
+      var x = (W - drawW) / 2 + Math.sin(t * 0.3) * W * 0.003; // faint drift
+      var y = (H - drawH) / 2 - p * H * 0.16;               // pan toward chip
+      ctx.drawImage(img, x, y, drawW, drawH);
     }
 
     // Legibility veil: darken the top band (hero text) and the very bottom,
