@@ -54,11 +54,17 @@
     revealEls.forEach(function (el) { el.classList.add("in"); });
   }
 
-  /* ---------- Full-page quantum-computer background (home only) ----------
-     A stylized cryostat: stacked disks ("levels") joined by looms of thin
-     wires, drawn full-viewport and pinned behind every section. Scrolling
-     the page — in either direction — drives how far the levels have
-     separated, as if the machine is opening up the further you scroll. */
+  /* ================================================================
+     Full-page quantum-computer background (home only)
+
+     A hand-rendered dilution-refrigerator cryostat — the gold "chandelier"
+     you picture when you think of a quantum computer: stacked circular
+     plates with real metal thickness, dense copper wire looms hanging
+     between them, threaded support rods, and small modules bolted to each
+     stage. It's all drawn on a full-viewport canvas pinned behind every
+     section. Scrolling the page (either direction) drives how far the
+     stages have separated — the machine opens up the further you scroll.
+     ================================================================ */
   var canvas = document.getElementById("qc-levels-bg");
   if (!canvas || !canvas.getContext) return;
 
@@ -69,14 +75,22 @@
   var targetProgress = 0;
   var currentProgress = 0;
 
-  var LEVELS = [
-    { r: 1.0, color: [214, 219, 230] },   // top plate — cool silver
-    { r: 0.8, color: [148, 150, 220] },   // indigo drifting in
-    { r: 0.62, color: [94, 92, 230] },    // accent-indigo
-    { r: 0.46, color: [100, 210, 255] },  // accent-cyan
-    { r: 0.32, color: [191, 90, 242] }    // accent-purple, nearest the chip
+  // Metal palettes: [r,g,b] stops from shadow → base → highlight → spark.
+  var GOLD = { deep: [92, 58, 12], mid: [176, 128, 34], bright: [255, 210, 104], hi: [255, 246, 214] };
+  var COPPER = { deep: [82, 40, 14], mid: [190, 108, 52], bright: [246, 170, 104], hi: [255, 226, 190] };
+  var BRONZE = { deep: [34, 27, 20], mid: [86, 68, 46], bright: [150, 124, 86], hi: [206, 184, 140] };
+
+  // Stages of the fridge, top → bottom. rFrac scales the shared base radius.
+  // The top entry is the heavy vacuum flange; the rest are the gold plates.
+  var STAGES = [
+    { rFrac: 1.16, thick: 0.42, metal: BRONZE, flange: true },
+    { rFrac: 1.00, thick: 0.16, metal: GOLD },
+    { rFrac: 0.82, thick: 0.15, metal: GOLD },
+    { rFrac: 0.64, thick: 0.14, metal: GOLD },
+    { rFrac: 0.46, thick: 0.13, metal: GOLD }
   ];
-  var WIRES_PER_GAP = 12;
+  var TILT = 0.30;              // vertical squash of every ellipse (perspective)
+  var WIRES_PER_GAP = 30;
 
   function resize() {
     DPR = Math.min(window.devicePixelRatio || 1, 2);
@@ -93,110 +107,259 @@
     return Math.min(Math.max(window.scrollY / scrubDistance, 0), 1);
   }
 
-  function drawLevel(cx, cy, radiusPx, tiltY, color, alpha, glow) {
-    ctx.save();
-    ctx.translate(cx, cy);
-    ctx.scale(1, tiltY);
-    if (glow) {
-      var g = ctx.createRadialGradient(0, 0, radiusPx * 0.2, 0, 0, radiusPx * 1.4);
-      g.addColorStop(0, "rgba(" + color[0] + "," + color[1] + "," + color[2] + "," + (alpha * 0.35) + ")");
-      g.addColorStop(1, "rgba(" + color[0] + "," + color[1] + "," + color[2] + ",0)");
-      ctx.fillStyle = g;
-      ctx.beginPath();
-      ctx.arc(0, 0, radiusPx * 1.4, 0, Math.PI * 2);
-      ctx.fill();
-    }
-    ctx.strokeStyle = "rgba(" + color[0] + "," + color[1] + "," + color[2] + "," + alpha + ")";
-    ctx.lineWidth = 1.6 * DPR;
-    ctx.beginPath();
-    ctx.arc(0, 0, radiusPx, 0, Math.PI * 2);
-    ctx.stroke();
-    // Rim highlight
-    ctx.strokeStyle = "rgba(255,255,255," + (alpha * 0.4) + ")";
-    ctx.lineWidth = 0.6 * DPR;
-    ctx.beginPath();
-    ctx.arc(0, 0, radiusPx * 0.985, Math.PI * 1.08, Math.PI * 1.9);
-    ctx.stroke();
-    ctx.restore();
+  function rgba(c, a) {
+    return "rgba(" + c[0] + "," + c[1] + "," + c[2] + "," + a + ")";
+  }
+  function mix(a, b) {
+    return [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2, (a[2] + b[2]) / 2];
+  }
+  // Deterministic pseudo-random so mounted components don't jitter frame to frame.
+  function rand(seed) {
+    var x = Math.sin(seed * 127.1 + 311.7) * 43758.5453;
+    return x - Math.floor(x);
   }
 
-  function drawWires(cx, y1, r1, y2, r2, tiltY, color, alpha, sway) {
+  // A single metal plate/disk with real thickness: a curved edge band drawn
+  // with cylindrical shading, capped by a metallic top face plus a specular
+  // sheen and a bright rim. Light comes from the upper-left.
+  function drawDisk(cx, cy, r, thick, metal, alpha) {
+    var ry = r * TILT;
+
+    // ----- edge band (the visible side of the cylinder) -----
+    ctx.beginPath();
+    ctx.moveTo(cx + r, cy);
+    ctx.ellipse(cx, cy + thick, r, ry, 0, 0, Math.PI, false);   // bottom front arc, R→L
+    ctx.lineTo(cx - r, cy);
+    ctx.ellipse(cx, cy, r, ry, 0, Math.PI, 0, true);            // top front arc, L→R
+    ctx.closePath();
+    var edge = ctx.createLinearGradient(cx - r, cy, cx + r, cy);
+    edge.addColorStop(0.0, rgba(metal.deep, alpha));
+    edge.addColorStop(0.18, rgba(metal.mid, alpha));
+    edge.addColorStop(0.4, rgba(metal.bright, alpha));
+    edge.addColorStop(0.56, rgba(metal.mid, alpha));
+    edge.addColorStop(0.8, rgba(metal.deep, alpha));
+    edge.addColorStop(1.0, rgba([0, 0, 0], alpha * 0.9));
+    ctx.fillStyle = edge;
+    ctx.fill();
+    // thin dark seam at the very bottom of the band
+    ctx.strokeStyle = rgba([0, 0, 0], alpha * 0.5);
+    ctx.lineWidth = 1 * DPR;
+    ctx.beginPath();
+    ctx.ellipse(cx, cy + thick, r, ry, 0, 0, Math.PI, false);
+    ctx.stroke();
+
+    // ----- top face -----
+    ctx.beginPath();
+    ctx.ellipse(cx, cy, r, ry, 0, 0, Math.PI * 2);
+    var face = ctx.createLinearGradient(cx - r * 0.7, cy - ry, cx + r * 0.7, cy + ry);
+    face.addColorStop(0.0, rgba(metal.hi, alpha));
+    face.addColorStop(0.28, rgba(metal.bright, alpha));
+    face.addColorStop(0.6, rgba(metal.mid, alpha));
+    face.addColorStop(1.0, rgba(metal.deep, alpha));
+    ctx.fillStyle = face;
+    ctx.fill();
+
+    // specular sweep across the top face (upper-left light)
+    ctx.save();
+    ctx.clip();
+    var spec = ctx.createRadialGradient(
+      cx - r * 0.35, cy - ry * 0.5, r * 0.05,
+      cx - r * 0.35, cy - ry * 0.5, r * 1.1
+    );
+    spec.addColorStop(0, rgba(metal.hi, alpha * 0.55));
+    spec.addColorStop(0.4, rgba(metal.hi, 0));
+    ctx.fillStyle = spec;
+    ctx.fillRect(cx - r, cy - ry, r * 2, ry * 2);
+    ctx.restore();
+
+    // bright rim on the lit side
+    ctx.strokeStyle = rgba(metal.hi, alpha * 0.85);
+    ctx.lineWidth = 1.4 * DPR;
+    ctx.beginPath();
+    ctx.ellipse(cx, cy, r * 0.995, ry * 0.995, 0, Math.PI * 0.95, Math.PI * 1.85);
+    ctx.stroke();
+  }
+
+  // Concentric machined rings on the top flange face — the lathe-cut look.
+  function flangeRings(cx, cy, r, alpha) {
+    for (var i = 1; i <= 4; i++) {
+      var rr = r * (0.82 - i * 0.15);
+      if (rr <= 0) break;
+      ctx.strokeStyle = rgba(BRONZE.hi, alpha * (0.5 - i * 0.06));
+      ctx.lineWidth = 1 * DPR;
+      ctx.beginPath();
+      ctx.ellipse(cx, cy, rr, rr * TILT, 0, 0, Math.PI * 2);
+      ctx.stroke();
+    }
+  }
+
+  // Dense hanging wire loom between two stages: bundles of thin copper/gold
+  // lines that bow outward and sag, brighter on the near (front) side.
+  function drawWires(cx, y1, r1, y2, r2, sway, alpha) {
     for (var i = 0; i < WIRES_PER_GAP; i++) {
-      var angle = (i / WIRES_PER_GAP) * Math.PI * 2;
-      var wobble = Math.sin(angle * 3 + sway) * 0.06 + 1;
-      var x1 = cx + Math.cos(angle) * r1;
-      var yy1 = y1 + Math.sin(angle) * r1 * tiltY;
-      var x2 = cx + Math.cos(angle) * r2;
-      var yy2 = y2 + Math.sin(angle) * r2 * tiltY;
-      var bowX = cx + Math.cos(angle) * ((r1 + r2) / 2) * 1.16 * wobble;
-      var midY = (yy1 + yy2) / 2;
-      ctx.strokeStyle = "rgba(" + color[0] + "," + color[1] + "," + color[2] + "," + alpha + ")";
-      ctx.lineWidth = 0.55 * DPR;
+      var f = i / WIRES_PER_GAP;
+      var angle = f * Math.PI * 2;
+      var ca = Math.cos(angle), sa = Math.sin(angle);
+      var front = (sa + 1) / 2;                       // 0 = back, 1 = front
+      var jitter = (rand(i * 3.3) - 0.5) * 0.05;
+      var x1 = cx + ca * r1 * (1 + jitter);
+      var yy1 = y1 + sa * r1 * TILT;
+      var x2 = cx + ca * r2 * (1 + jitter);
+      var yy2 = y2 + sa * r2 * TILT;
+      var bow = ((r1 + r2) / 2) * (1.05 + rand(i * 7.1) * 0.14) * (1 + Math.sin(sway + i) * 0.02);
+      var bx = cx + ca * bow;
+      var sag = (yy2 - yy1) * (0.12 + rand(i * 5.7) * 0.1);
+      var col = (i % 3 === 0) ? GOLD : COPPER;
+      var a = alpha * (0.28 + front * 0.62);
+      ctx.strokeStyle = rgba(front > 0.5 ? col.bright : col.mid, a);
+      ctx.lineWidth = (front > 0.5 ? 1.0 : 0.7) * DPR;
       ctx.beginPath();
       ctx.moveTo(x1, yy1);
-      ctx.bezierCurveTo(bowX, yy1 + (midY - yy1) * 0.6, bowX, yy2 - (yy2 - midY) * 0.6, x2, yy2);
+      ctx.bezierCurveTo(bx, yy1 + (yy2 - yy1) * 0.35 + sag, bx, yy2 - (yy2 - yy1) * 0.2 + sag, x2, yy2);
       ctx.stroke();
+    }
+  }
+
+  // Threaded vertical support rods around the perimeter, front ones brightest.
+  function drawRods(cx, yTop, rTop, yBot, rBot, alpha) {
+    var angles = [-0.62, 0.62, Math.PI - 0.5, Math.PI + 0.5];
+    for (var i = 0; i < angles.length; i++) {
+      var ca = Math.cos(angles[i]);
+      var sa = Math.sin(angles[i]);
+      var front = (sa + 1) / 2;
+      var xt = cx + ca * rTop, yt = yTop + sa * rTop * TILT;
+      var xb = cx + ca * rBot, yb = yBot + sa * rBot * TILT;
+      var a = alpha * (0.3 + front * 0.6);
+      var g = ctx.createLinearGradient(xt - 3 * DPR, 0, xt + 3 * DPR, 0);
+      g.addColorStop(0, rgba(GOLD.deep, a));
+      g.addColorStop(0.5, rgba(GOLD.bright, a));
+      g.addColorStop(1, rgba(GOLD.deep, a));
+      ctx.strokeStyle = g;
+      ctx.lineWidth = (front > 0.5 ? 3.2 : 2) * DPR;
+      ctx.beginPath();
+      ctx.moveTo(xt, yt);
+      ctx.lineTo(xb, yb);
+      ctx.stroke();
+    }
+  }
+
+  // Small gold modules bolted near the center of a plate (canisters, boxes).
+  function drawModules(cx, cy, r, seed, alpha) {
+    var count = 3;
+    for (var i = 0; i < count; i++) {
+      var ang = rand(seed + i) * Math.PI * 2;
+      var dist = r * (0.2 + rand(seed + i * 2.2) * 0.4);
+      var mx = cx + Math.cos(ang) * dist;
+      var my = cy + Math.sin(ang) * dist * TILT;
+      var mw = r * (0.09 + rand(seed + i * 3.1) * 0.06);
+      var mh = r * (0.16 + rand(seed + i * 4.3) * 0.14);
+      var g = ctx.createLinearGradient(mx - mw, 0, mx + mw, 0);
+      g.addColorStop(0, rgba(GOLD.deep, alpha));
+      g.addColorStop(0.45, rgba(GOLD.bright, alpha));
+      g.addColorStop(0.6, rgba(GOLD.mid, alpha));
+      g.addColorStop(1, rgba(GOLD.deep, alpha));
+      ctx.fillStyle = g;
+      ctx.fillRect(mx - mw, my - mh, mw * 2, mh);
+      // cap
+      ctx.fillStyle = rgba(GOLD.hi, alpha * 0.9);
+      ctx.beginPath();
+      ctx.ellipse(mx, my - mh, mw, mw * TILT, 0, 0, Math.PI * 2);
+      ctx.fill();
     }
   }
 
   function render() {
     var p = currentProgress;
 
-    // Dim near-black backdrop — matches the site's base black, so the
-    // machine reads as glowing metal against dark rather than a bright box.
+    // Deep near-black backdrop, matching the site's base so the machine
+    // reads as warm metal floating in the dark.
     ctx.fillStyle = "#020204";
     ctx.fillRect(0, 0, W, H);
 
-    var cx = W / 2 + Math.sin(t * 0.12) * W * 0.01;
-    var tiltY = 0.32;
-    var zoom = 1 + p * 0.22;
-    var baseR = Math.min(W, H) * 0.2 * zoom;
-    var baseGap = H * 0.075;
-    var extraGap = H * 0.2;
+    var sway = t * 1.4;
+    var cx = W / 2 + Math.sin(t * 0.1) * W * 0.008;
+    var zoom = 1 + p * 0.2;
+    var baseR = Math.min(W, H) * 0.185 * zoom;
+
+    var baseGap = H * 0.085;
+    var extraGap = H * 0.185;
     var gap = baseGap + p * extraGap;
-    var n = LEVELS.length;
-    var totalHeight = (n - 1) * gap;
-    var startY = H / 2 - totalHeight / 2 - H * 0.06;
 
+    var n = STAGES.length;
     var positions = [];
-    for (var i = 0; i < n; i++) {
-      positions.push(startY + i * gap);
-    }
+    var totalH = (n - 1) * gap;
+    var startY = H * 0.46 - totalH / 2;
+    for (var i = 0; i < n; i++) positions.push(startY + i * gap);
 
-    // Wire looms first, so the disks draw cleanly on top of them.
+    var radii = STAGES.map(function (s) { return s.rFrac * baseR; });
+    var thicks = STAGES.map(function (s) { return s.thick * baseR; });
+
+    // Central column running down the middle of the stack.
+    var colGrad = ctx.createLinearGradient(cx - 3 * DPR, 0, cx + 4 * DPR, 0);
+    colGrad.addColorStop(0, rgba(GOLD.deep, 0.5));
+    colGrad.addColorStop(0.5, rgba(GOLD.bright, 0.7));
+    colGrad.addColorStop(1, rgba(GOLD.deep, 0.5));
+    ctx.strokeStyle = colGrad;
+    ctx.lineWidth = 3 * DPR;
+    ctx.beginPath();
+    ctx.moveTo(cx, positions[0]);
+    ctx.lineTo(cx, positions[n - 1] + gap * 0.5);
+    ctx.stroke();
+
+    // Perimeter rods span the full height, behind everything.
+    drawRods(cx, positions[0] + thicks[0], radii[0] * 0.9, positions[n - 1], radii[n - 1], 0.5 + p * 0.2);
+
+    // Wire looms between consecutive stages (drawn before the plates so the
+    // plates cleanly overlap the tops of the bundles).
     for (i = 0; i < n - 1; i++) {
-      var lvA = LEVELS[i], lvB = LEVELS[i + 1];
       drawWires(
         cx,
-        positions[i], lvA.r * baseR,
-        positions[i + 1], lvB.r * baseR,
-        tiltY,
-        [(lvA.color[0] + lvB.color[0]) / 2, (lvA.color[1] + lvB.color[1]) / 2, (lvA.color[2] + lvB.color[2]) / 2],
-        0.16 + p * 0.1,
-        t * 2 + i
+        positions[i] + thicks[i], radii[i] * 0.9,
+        positions[i + 1], radii[i + 1] * 0.94,
+        sway + i, 0.5 + p * 0.15
       );
     }
 
+    // Plates, top → bottom (painter's order = correct occlusion).
     for (i = 0; i < n; i++) {
-      var lv = LEVELS[i];
-      drawLevel(cx, positions[i], lv.r * baseR, tiltY, lv.color, 0.55 + p * 0.15, i === n - 1);
+      var s = STAGES[i];
+      var alpha = 0.9;
+      drawDisk(cx, positions[i], radii[i], thicks[i], s.metal, alpha);
+      if (s.flange) {
+        flangeRings(cx, positions[i], radii[i], alpha);
+      } else if (i > 0 && i < n - 1) {
+        drawModules(cx, positions[i], radii[i], i * 11.3, alpha * 0.95);
+      }
     }
 
-    // A small glowing chip beneath the last level — the "qubits" themselves.
-    var chipY = positions[n - 1] + gap * 0.42;
+    // Mixing-chamber can + the qubit package glowing beneath the last stage.
+    var lastY = positions[n - 1];
+    var chamberR = radii[n - 1] * 0.5;
+    drawDisk(cx, lastY + gap * 0.4, chamberR, chamberR * 0.5, GOLD, 0.9);
+    var chipY = lastY + gap * 0.4 + chamberR * 0.7;
     var chipR = (5 + Math.sin(t * 1.6) * 1) * DPR;
-    var chipGrad = ctx.createRadialGradient(cx, chipY, 0, cx, chipY, chipR * 6);
-    chipGrad.addColorStop(0, "rgba(210,215,255,0.9)");
-    chipGrad.addColorStop(0.35, "rgba(150,120,235,0.45)");
-    chipGrad.addColorStop(1, "rgba(100,110,230,0)");
-    ctx.fillStyle = chipGrad;
+    var glow = ctx.createRadialGradient(cx, chipY, 0, cx, chipY, chipR * 7);
+    glow.addColorStop(0, "rgba(210,220,255,0.9)");
+    glow.addColorStop(0.35, "rgba(150,140,235,0.4)");
+    glow.addColorStop(1, "rgba(100,120,230,0)");
+    ctx.fillStyle = glow;
     ctx.beginPath();
-    ctx.arc(cx, chipY, chipR * 6, 0, Math.PI * 2);
+    ctx.arc(cx, chipY, chipR * 7, 0, Math.PI * 2);
     ctx.fill();
-    ctx.fillStyle = "#f5f5ff";
+    ctx.fillStyle = "#eef0ff";
     ctx.beginPath();
     ctx.arc(cx, chipY, chipR, 0, Math.PI * 2);
     ctx.fill();
+
+    // Legibility veil: darken the top band (where hero text sits) and the
+    // very bottom, leaving the machine's midsection at full brightness.
+    var veil = ctx.createLinearGradient(0, 0, 0, H);
+    veil.addColorStop(0.0, "rgba(2,2,4,0.62)");
+    veil.addColorStop(0.4, "rgba(2,2,4,0.12)");
+    veil.addColorStop(0.72, "rgba(2,2,4,0.12)");
+    veil.addColorStop(1.0, "rgba(2,2,4,0.5)");
+    ctx.fillStyle = veil;
+    ctx.fillRect(0, 0, W, H);
   }
 
   function animate() {
@@ -212,8 +375,8 @@
   render();
 
   if (reduceMotion) {
-    // No autoplaying animation loop — redraw only in direct response to
-    // the user's own scroll or a viewport resize.
+    // No autoplaying loop — redraw only in response to the user's own
+    // scrolling or a viewport resize.
     window.addEventListener(
       "scroll",
       function () {
