@@ -17,7 +17,7 @@ that are actually true right now:
 |---|---|
 | `index.html` | Home — what the club is, one sentence, one call to action |
 | `about.html` | Mission and who it's for |
-| `contact.html` | Contact info + membership interest form |
+| `contact.html` | Contact info + WhatsApp join + QR code |
 
 ## Project structure
 
@@ -25,7 +25,7 @@ that are actually true right now:
 .
 ├── index.html            Home
 ├── about.html             Mission, who it's for
-├── contact.html           Contact info + membership interest form
+├── contact.html           Contact info + WhatsApp join + QR code
 ├── css/style.css          Design system (dark, Apple-inspired theme)
 ├── js/main.js             Nav toggle, scroll reveals, scroll-driven quantum-computer background
 ├── assets/favicon.svg           Site icon (quantum "atom" mark)
@@ -68,28 +68,15 @@ git commit -m "describe the change"
 git push
 ```
 
-## Connect the contact form to your email
+## How people join
 
-The form on `contact.html` posts to [Formspree](https://formspree.io), a free
-service that emails you every submission with no backend of your own to run.
-It needs a one-time, ~2-minute setup:
-
-1. Go to [formspree.io](https://formspree.io) and create a free account
-   using **ktsekhmayste2022@fau.edu** (or any account, then add that address
-   as the form's notification email in step 3).
-2. Click **New Form**, name it (e.g. "QDC Sign-Ups"), and copy the endpoint
-   it gives you — it looks like `https://formspree.io/f/abcd1234`.
-3. In `_content/contact.html`, replace `your-form-id` in
-   `action="https://formspree.io/f/your-form-id"` with your real ID.
-4. Run `./_build.sh` to regenerate `contact.html` with the updated action
-   URL, then commit and push.
-5. Submit the form once yourself — Formspree sends a one-time confirmation
-   email the first time; after you confirm, every future submission is
-   emailed to you automatically, with the submitter's own address set as
-   Reply-To so you can respond directly.
-
-Prefer Google Forms instead? Swap the `<form>` block for an embedded Google
-Form iframe — no other changes needed.
+The Contact page (and the "Join now" buttons throughout the site) send people
+straight to the club's **WhatsApp group** — a "Join the WhatsApp group" button
+and a scannable QR code, no backend or form service required. To point these at
+a different invite link, update the `https://chat.whatsapp.com/...` URL in
+`_partials/nav.html` (if used), `_partials/footer.html`, `_content/index.html`,
+`_content/about.html`, and `_content/contact.html`, regenerate the QR image at
+`assets/img/whatsapp-qr.png`, then run `./_build.sh`, commit, and push.
 
 ## Logo
 
@@ -106,11 +93,11 @@ home-screen icons, and PNG copies of both lockups.
 - Single shared stylesheet (`css/style.css`) using CSS custom properties —
   change the values in `:root` to retheme the whole site.
 - The home page background (`#qc-levels-bg` canvas, driven by `js/main.js`)
-  is a stylized quantum-computer cryostat — stacked disks joined by wire
-  looms — that separates into exploded "levels" as the page is scrolled,
-  hand-rolled with no external libraries. It respects
-  `prefers-reduced-motion` (no idle animation loop; it still redraws in
-  direct response to the user's own scrolling).
+  is a real photographic render of a dilution-refrigerator quantum computer
+  (`assets/img/quantum-computer.webp`, freely licensed via Wikimedia Commons).
+  It stays intact and, on scroll, slowly zooms and pans downward toward the
+  qubit chip — cinematic, no slicing. It respects `prefers-reduced-motion`
+  (no idle loop; it still redraws in response to the user's own scrolling).
 - No frameworks, build step, or npm dependencies — easy for future officers
   to maintain regardless of their technical background.
 

@@ -18,7 +18,7 @@ Three pages, on purpose:
 |---|---|
 | Home | What the club is, in one breath, with a single call to action |
 | About | Mission and who it's for |
-| Contact | Contact info + membership interest form |
+| Contact | Contact info + WhatsApp join + QR code |
 
 Earlier drafts had seven pages — Programs, Projects, Opportunities, Team,
 a separate Contact page — full of placeholder officers, invented example
@@ -52,10 +52,10 @@ canvas rather than a stock photo or static illustration.
 
 ## 4. Immediate next steps
 
-1. Create the free Formspree form ID and drop it into `contact.html` — see
-   "Connect the contact form to your email" in `README.md` (2-minute,
-   one-time setup). It's already wired to email ktsekhmayste2022@fau.edu
-   once that ID is in place.
+1. Keep the WhatsApp group invite current. The site's "Join now" buttons and
+   the Contact-page QR code point at the group link — if that invite is ever
+   reset, update the URL and regenerate `assets/img/whatsapp-qr.png` (see
+   "How people join" in `README.md`).
 2. Get the club officially registered with FAU Student Government / Owl
    Central (needed for room bookings, funding requests, and official
    recognition).
@@ -84,5 +84,5 @@ canvas rather than a stock photo or static illustration.
   meeting schedule — anything not real yet is simply left off rather than
   filled in with a placeholder.
 - No fabricated stats or numbers.
-- No backend — the contact form needs a real Formspree ID before it can
-  actually deliver submissions (see Section 4).
+- No backend — joining runs entirely through the WhatsApp group link and QR
+  code, so there's nothing server-side to maintain.
