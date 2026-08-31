@@ -258,18 +258,17 @@ p { margin: 0; color: var(--text-secondary); line-height: 1.6; font-size: 17px; 
   color: transparent;
 }
 
-/* Make the hero phrase bright and luminous so it reads on its own, even
-   over the bright machine behind it — a lighter gradient plus a tight dark
-   outline (for contrast on gold) and a soft blue glow. */
+/* Bright, saturated hero phrase — vivid violet → blue → cyan, kept luminous
+   (no dark outline, which greyed it out). A soft shadow plus a colored glow
+   give just enough separation from the machine behind it. */
 .hero h1 .gradient-text {
   font-weight: 800;
-  background: linear-gradient(100deg, #c3a8ff 0%, #7fc6ff 46%, #78f0ff 100%);
+  background: linear-gradient(100deg, #d886ff 0%, #6ab0ff 42%, #46f2ff 100%);
   -webkit-background-clip: text;
   background-clip: text;
   filter:
-    drop-shadow(0 1px 1px rgba(0, 0, 0, 0.85))
-    drop-shadow(0 0 2px rgba(0, 0, 0, 0.75))
-    drop-shadow(0 0 26px rgba(90, 150, 255, 0.55));
+    drop-shadow(0 2px 7px rgba(0, 0, 0, 0.45))
+    drop-shadow(0 0 22px rgba(150, 110, 255, 0.6));
 }
 
 .hero p.lede {
