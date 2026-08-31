@@ -120,7 +120,7 @@
     // leaving the machine's midsection at full brightness.
     var veil = ctx.createLinearGradient(0, 0, 0, H);
     veil.addColorStop(0.0, "rgba(0,0,0,0.78)");
-    veil.addColorStop(0.32, "rgba(0,0,0,0.52)");
+    veil.addColorStop(0.34, "rgba(0,0,0,0.6)");
     veil.addColorStop(0.62, "rgba(0,0,0,0.42)");
     veil.addColorStop(1.0, "rgba(0,0,0,0.58)");
     ctx.fillStyle = veil;
