@@ -258,6 +258,12 @@ p { margin: 0; color: var(--text-secondary); line-height: 1.6; font-size: 17px; 
   color: transparent;
 }
 
+/* Make the highlighted hero phrase pop off the headline */
+.hero h1 .gradient-text {
+  font-weight: 800;
+  filter: drop-shadow(0 0 26px rgba(90, 140, 255, 0.5)) drop-shadow(0 2px 8px rgba(0, 0, 0, 0.5));
+}
+
 .hero p.lede {
   max-width: 620px;
   margin: 24px auto 0;

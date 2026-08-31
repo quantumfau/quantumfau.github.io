@@ -11,6 +11,6 @@
 <meta property="og:description" content="__DESC__">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#000000">
-<link rel="stylesheet" href="css/style.css?v=10">
+<link rel="stylesheet" href="css/style.css?v=11">
 </head>
 <body>
