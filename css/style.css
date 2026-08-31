@@ -258,20 +258,18 @@ p { margin: 0; color: var(--text-secondary); line-height: 1.6; font-size: 17px; 
   color: transparent;
 }
 
-/* Make the highlighted hero phrase pop off the headline */
+/* Make the hero phrase bright and luminous so it reads on its own, even
+   over the bright machine behind it — a lighter gradient plus a tight dark
+   outline (for contrast on gold) and a soft blue glow. */
 .hero h1 .gradient-text {
   font-weight: 800;
-  filter: drop-shadow(0 0 20px rgba(90, 140, 255, 0.55));
-}
-/* Dark highlight backing so the phrase stays readable over the bright
-   machine behind it, no matter where it falls on the image. */
-.hero h1 .hl-quantum {
-  background: rgba(4, 6, 16, 0.66);
-  border-radius: 12px;
-  padding: 0.02em 0.16em;
-  box-decoration-break: clone;
-  -webkit-box-decoration-break: clone;
-  box-shadow: 0 0 0 1px rgba(120, 150, 255, 0.18);
+  background: linear-gradient(100deg, #c3a8ff 0%, #7fc6ff 46%, #78f0ff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  filter:
+    drop-shadow(0 1px 1px rgba(0, 0, 0, 0.85))
+    drop-shadow(0 0 2px rgba(0, 0, 0, 0.75))
+    drop-shadow(0 0 26px rgba(90, 150, 255, 0.55));
 }
 
 .hero p.lede {
