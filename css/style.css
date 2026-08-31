@@ -263,12 +263,13 @@ p { margin: 0; color: var(--text-secondary); line-height: 1.6; font-size: 17px; 
    give just enough separation from the machine behind it. */
 .hero h1 .gradient-text {
   font-weight: 800;
-  background: linear-gradient(100deg, #d886ff 0%, #6ab0ff 42%, #46f2ff 100%);
+  background: linear-gradient(95deg, #f49bff 0%, #8f9bff 38%, #4fd0ff 68%, #5cffe0 100%);
   -webkit-background-clip: text;
   background-clip: text;
   filter:
-    drop-shadow(0 2px 7px rgba(0, 0, 0, 0.45))
-    drop-shadow(0 0 22px rgba(150, 110, 255, 0.6));
+    drop-shadow(0 0 10px rgba(120, 200, 255, 0.7))
+    drop-shadow(0 0 34px rgba(180, 120, 255, 0.65))
+    drop-shadow(0 2px 5px rgba(0, 0, 0, 0.4));
 }
 
 .hero p.lede {
