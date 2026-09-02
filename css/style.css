@@ -613,6 +613,26 @@ section.tight { padding: 72px 0; }
   margin-top: 16px;
   text-align: center;
 }
+.form-panel.wide { max-width: 760px; }
+.chip-row { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip-opt {
+  cursor: pointer; user-select: none; font-size: 13px; line-height: 1;
+  padding: 9px 14px; border-radius: var(--radius-pill);
+  background: var(--bg-elevated); border: 1px solid var(--border-subtle);
+  color: var(--text-secondary); transition: border-color .15s, background .15s, color .15s;
+}
+.chip-opt:hover { border-color: var(--accent-cyan); color: var(--text-primary); }
+.chip-opt[aria-pressed="true"] {
+  background: rgba(41,151,255,.16); border-color: var(--link-blue); color: #dbe9ff;
+}
+.chip-opt:focus-visible { outline: 2px solid var(--link-blue); outline-offset: 2px; }
+.form-ok, .form-err { margin-top: 16px; font-size: 14px; text-align: center; }
+.form-ok { color: #5ce6a8; } .form-err { color: #ff8a95; }
+.form-success {
+  text-align: center; padding: 24px 8px;
+}
+.form-success h3 { font-size: 22px; margin-bottom: 8px; }
+.form-success p { color: var(--text-secondary); }
 
 /* CTA band */
 .cta-band {
