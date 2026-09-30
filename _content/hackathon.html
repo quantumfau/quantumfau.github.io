@@ -207,7 +207,9 @@
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { msg("Please add the email you used on DeepStation."); return; }
     if (!chosen("interests").length || !chosen("avail").length) { msg("Pick at least one interest and one time you can meet."); return; }
     var data = {
-      track: "hackathon", name: name, email: email, college: col.value,
+      track: "hackathon", email: email, college: col.value,
+      /* Email + [HK] tag ride in the Name column so the current sheet script keeps them */
+      name: name + " <" + email.toLowerCase() + "> [HK]",
       major: document.getElementById("h-major").value.trim(),
       degree: document.getElementById("h-degree").value,
       interests: chosen("interests").join("; "),
