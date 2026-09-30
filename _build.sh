@@ -5,6 +5,8 @@
 set -euo pipefail
 cd "$(dirname "$0")"
 
+python3 _tools/news.py render   # regenerate _content/news.html from news.json
+
 build_page () {
   local slug="$1" title="$2" desc="$3"
   sed -e "s#__TITLE__#${title}#g" -e "s#__DESC__#${desc}#g" _partials/head.tpl > "${slug}.html"
