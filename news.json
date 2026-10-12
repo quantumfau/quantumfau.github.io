@@ -6,19 +6,19 @@
       "date": "2026-09-30",
       "tag": "Club",
       "title": "Florida Qiskit Hackathon: Quantum Horizons, Oct 17-18",
-      "summary": "QDC is hosting FAU's IBM Qiskit Fall Fest hackathon. Register on DeepStation, set up your IBM Quantum account, and take our team-matching quiz. Every team pairs a Business and an Engineering student. No quantum experience needed.",
-      "url": "hackathon.html",
+      "summary": "QDC is hosting FAU's IBM Qiskit Fall Fest hackathon on Oct 17-18. Register on DeepStation. Need teammates? Fill out our team-building form and we'll match you. No quantum experience needed.",
+      "url": "https://deepstation.ai/hackathons/mtrxfkxet400k68imrz4y5wn",
       "source": "Quantum Development Club",
-      "link_text": "Register & find a team"
+      "link_text": "Register on DeepStation"
     },
     {
       "date": "2026-09-30",
       "tag": "Club",
-      "title": "Qiskit Workshop & Social, Tue Oct 6, 4-6 PM",
-      "summary": "A beginner-friendly, hands-on intro to Qiskit at the Gruber AI Sandbox (LY-103) in Wimberly Library. Learn the basics, try some quantum coding, and meet potential hackathon teammates. Just bring a laptop.",
-      "url": "https://fau.campuslabs.com/engage/event/12838434",
+      "title": "Qiskit Workshop & Social (Oct 6, past event)",
+      "summary": "Our beginner-friendly Qiskit intro took place Oct 6 at the Gruber AI Sandbox in Wimberly Library. Missed it? Work through the same lesson on your own before the hackathon.",
+      "url": "https://quantumkev.github.io/Qiskit_Fall_Fest_2026/qolour/",
       "source": "Quantum Development Club",
-      "link_text": "RSVP on Owl Central"
+      "link_text": "Open the workshop lesson"
     },
     {
       "date": "2026-09-30",

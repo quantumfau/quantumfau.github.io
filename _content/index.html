@@ -10,6 +10,48 @@
         <a href="https://chat.whatsapp.com/LAW8ps6Jjb59WcjlVSt32g?s=cl&amp;p=i&amp;mlu=4" target="_blank" rel="noopener" class="btn btn-gradient">Join now</a>
         <a href="about.html" class="link-chevron">Learn more <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></a>
       </div>
+
+      <div class="hk-countdown reveal in" id="hk-countdown" data-start="2026-10-17T13:00:00Z" data-end="2026-10-18T23:59:00-04:00">
+        <div class="hk-cd-label">Florida Qiskit Fallfest Hackathon &#183; Sat, Oct 17 &#183; 9:00 AM &#183; FAU Boca Raton</div>
+        <div class="hk-cd-clock" aria-live="polite">
+          <div><span data-u="d">--</span><small>days</small></div>
+          <div><span data-u="h">--</span><small>hours</small></div>
+          <div><span data-u="m">--</span><small>min</small></div>
+          <div><span data-u="s">--</span><small>sec</small></div>
+        </div>
+        <div class="hk-cd-actions">
+          <a href="https://deepstation.ai/hackathons/mtrxfkxet400k68imrz4y5wn" target="_blank" rel="noopener" class="btn btn-gradient">Register on DeepStation</a>
+          <a href="hackathon.html#quiz" class="link-chevron">Need help building a team? <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></a>
+        </div>
+      </div>
+      <style>
+        .hk-countdown{margin:34px auto 0;max-width:620px;padding:22px 24px;border-radius:20px;border:1px solid rgba(143,92,255,.35);background:linear-gradient(180deg,rgba(20,14,40,.82),rgba(8,18,28,.82));backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);text-align:center}
+        .hk-cd-label{font-size:13.5px;letter-spacing:.02em;color:var(--accent-cyan);font-weight:600}
+        .hk-cd-clock{display:flex;justify-content:center;gap:14px;margin:14px 0 16px}
+        .hk-cd-clock div{min-width:74px;padding:10px 6px;border-radius:14px;background:rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.08)}
+        .hk-cd-clock span{display:block;font-size:clamp(28px,5vw,40px);font-weight:700;font-variant-numeric:tabular-nums;line-height:1.05;background:linear-gradient(100deg,#8f5cff,#22e6ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+        .hk-cd-clock small{display:block;margin-top:4px;font-size:11.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--text-tertiary)}
+        .hk-cd-actions{display:flex;flex-wrap:wrap;gap:16px;justify-content:center;align-items:center}
+        @media (max-width:480px){.hk-cd-clock{gap:8px}.hk-cd-clock div{min-width:62px}}
+      </style>
+      <script>
+      (function () {
+        var el = document.getElementById("hk-countdown"); if (!el) return;
+        var start = Date.parse(el.dataset.start), end = Date.parse(el.dataset.end);
+        var u = {}; el.querySelectorAll("[data-u]").forEach(function (n) { u[n.dataset.u] = n; });
+        var pad = function (n) { return (n < 10 ? "0" : "") + n; };
+        function tick() {
+          var now = Date.now(), left = Math.max(0, start - now);
+          if (now >= end) { el.querySelector(".hk-cd-label").textContent = "The Florida Qiskit Fallfest Hackathon has wrapped. Thanks to everyone who built with us!"; el.querySelector(".hk-cd-clock").hidden = true; el.querySelector(".hk-cd-actions").hidden = true; return; }
+          if (now >= start) { el.querySelector(".hk-cd-label").textContent = "The hackathon is happening now at FAU Boca Raton!"; el.querySelector(".hk-cd-clock").hidden = true; return; }
+          var s = Math.floor(left / 1000);
+          u.d.textContent = pad(Math.floor(s / 86400)); u.h.textContent = pad(Math.floor(s % 86400 / 3600));
+          u.m.textContent = pad(Math.floor(s % 3600 / 60)); u.s.textContent = pad(s % 60);
+          setTimeout(tick, 1000 - (now % 1000));
+        }
+        tick();
+      })();
+      </script>
     </div>
   </section>
 
@@ -21,18 +63,11 @@
         <p class="reveal">Two big ones this fall — a statewide quantum hackathon hosted right here at FAU, and Florida's flagship quantum conference down the road in West Palm Beach.</p>
       </div>
 
-      <div class="card reveal" style="margin-bottom:18px;">
-        <span class="card-tag" style="color:var(--accent-cyan);">Next up &#183; Workshop</span>
-        <h3 style="font-size:clamp(20px,2.6vw,24px);font-weight:700;margin-bottom:8px;">Qiskit Workshop &amp; Social &#183; Tue, Oct 6 &#183; 4&#8211;6 PM</h3>
-        <p style="font-size:16px;max-width:70ch;">Beginner-friendly, hands-on intro to Qiskit at the Gruber AI Sandbox (LY-103) in Wimberly Library. Meet potential hackathon teammates. No experience needed, just bring a laptop.</p>
-        <p style="margin-top:16px;"><a href="https://fau.campuslabs.com/engage/event/12838434" target="_blank" rel="noopener" class="btn btn-gradient">RSVP for the workshop</a></p>
-      </div>
-
       <div class="card reveal" style="margin-bottom:18px;background:radial-gradient(120% 170% at 12% 0%, rgba(123,92,255,0.18), rgba(16,16,19,0) 55%), var(--surface);">
         <span class="card-tag" style="color:var(--accent-cyan);">Featured &#183; Hackathon</span>
         <h3 style="font-size:clamp(22px,3vw,28px);font-weight:700;margin-bottom:10px;">Qiskit Fall Fest 2026 &#8212; Florida State Championship</h3>
         <p style="font-size:16px;max-width:70ch;">FAU is the home base for the first-ever Qiskit Fall Fest Florida State Championship &#8212; a statewide quantum-computing competition run by Entangled Solutions Group with FAU. It runs in three stages: workshops and registration (Sept 14&#8211;30), local university hackathons (Oct 2&#8211;30), and the state championship at FAU&#8217;s Boca Raton campus on <strong>Nov 13, 2026</strong>. Teams from six Florida universities &#8212; FAU, Miami-Dade College, Nova Southeastern, FGCU, Embry-Riddle, and Florida Tech &#8212; compete, with beginner-friendly workshops to get you started. No experience needed to learn.</p>
-        <p style="margin-top:16px;"><a href="hackathon.html" class="btn btn-gradient" style="margin-right:14px;">Register &amp; find a team</a><a href="https://entangledsolutionsgroup.com/Qiskit-Fall-Fest-2026/" target="_blank" rel="noopener" class="link-chevron">Details &amp; how to register <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></a></p>
+        <p style="margin-top:16px;"><a href="https://deepstation.ai/hackathons/mtrxfkxet400k68imrz4y5wn" target="_blank" rel="noopener" class="btn btn-gradient" style="margin-right:14px;">Register on DeepStation</a><a href="hackathon.html" class="link-chevron" style="margin-right:14px;">Hackathon details <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></a><a href="https://entangledsolutionsgroup.com/Qiskit-Fall-Fest-2026/" target="_blank" rel="noopener" class="link-chevron">Details &amp; how to register <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></a></p>
       </div>
 
       <div class="card reveal">
