@@ -20,6 +20,7 @@ build_page "index"   "Quantum Development Club | Florida Atlantic University" "F
 build_page "about"   "About | Quantum Development Club at FAU" "Our mission: connect students across every discipline at FAU to build quantum and AI projects together."
 build_page "events"  "Events | Quantum Development Club at FAU" "Quantum events for FAU students — the Qiskit Fall Fest Florida State Championship hosted at FAU, and Quantum Beach 2026 in West Palm Beach."
 build_page "hackathon" "Hackathon | Quantum Development Club at FAU" "Florida Qiskit Hackathon: Quantum Horizons, Oct 17-18, 2026 at FAU. Register on DeepStation, set up IBM Quantum, and take the team-matching quiz."
+build_page "notebooks" "Sample notebooks | Quantum Development Club at FAU" "Sample IBM Quantum notebooks for the Florida Qiskit Hackathon at FAU, sorted by topic and by how much code they need."
 build_page "news"    "News | Quantum Development Club at FAU" "The latest in quantum at Florida Atlantic University, including FAU's new quantum computing business course."
 build_page "contact" "Contact | Quantum Development Club at FAU" "Get in touch with the Quantum Development Club at Florida Atlantic University, or sign up to join."
 
