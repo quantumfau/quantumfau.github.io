@@ -1,5 +1,5 @@
 {
-  "last_checked": "2026-10-06",
+  "last_checked": "2026-10-19",
   "blocked_urls": [],
   "items": [
     {
@@ -90,6 +90,15 @@
       "title": "FAU Receives NIST Grant to Build Quantum Cybersecurity Workforce",
       "summary": "FAU has received a $200,000 NIST award to strengthen the quantum cybersecurity workforce across South Florida and the Treasure Coast through hands-on training, curriculum development and career pathways.",
       "url": "https://www.fau.edu/newsdesk/articles/quantum-workforce-nist-grant.php",
+      "source": "FAU News Desk",
+      "auto": true
+    },
+    {
+      "date": "2026-10-19",
+      "tag": "Cryptography",
+      "title": "FAU Receives $400,000 NSF Grant to Advance Post-Quantum Cryptography",
+      "summary": "",
+      "url": "https://www.fau.edu/newsdesk/articles/nsf-grant-post-quantum-cryptography.php",
       "source": "FAU News Desk",
       "auto": true
     }
