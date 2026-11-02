@@ -1,5 +1,5 @@
 {
-  "last_checked": "2026-10-19",
+  "last_checked": "2026-11-02",
   "blocked_urls": [],
   "items": [
     {
@@ -99,6 +99,15 @@
       "title": "FAU Receives $400,000 NSF Grant to Advance Post-Quantum Cryptography",
       "summary": "",
       "url": "https://www.fau.edu/newsdesk/articles/nsf-grant-post-quantum-cryptography.php",
+      "source": "FAU News Desk",
+      "auto": true
+    },
+    {
+      "date": "2026-11-02",
+      "tag": "Research",
+      "title": "FAU Researchers Explore Quantum Computing to Predict Lung Cancer",
+      "summary": "FAU engineering researchers investigated how quantum computing could improve machine learning for lung cancer prediction when healthcare datasets are limited.",
+      "url": "https://www.fau.edu/newsdesk/articles/quantum-computer-lung-cancer-prediction.php",
       "source": "FAU News Desk",
       "auto": true
     }
