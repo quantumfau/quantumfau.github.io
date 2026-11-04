@@ -140,7 +140,7 @@
           <textarea id="w-question" name="question" maxlength="600" placeholder="Anything you&#8217;d like Amit to cover?"></textarea>
         </div>
         <button type="submit" class="btn btn-gradient" style="width:100%;">Register for the workshop</button>
-        <p class="form-note">Your answers go only to the Quantum Development Club organizers and are used to plan this workshop.</p>
+        <p class="form-note">You&#8217;ll get a confirmation email right away. Your answers go only to the Quantum Development Club organizers and are used to plan this workshop.</p>
         <div class="form-err" id="w-msg" hidden></div>
       </form>
     </div>
@@ -170,7 +170,9 @@
      packed into those columns, each labelled, with a [WS|event] tag in Name.
      The plain fields (track, event, timestamp, email, ...) are sent too, for
      when the script is updated to route track=workshop to its own tab. */
-  var ENDPOINT = "https://script.google.com/macros/s/AKfycbx7sXys8L6IoVu064yAGJrXIGkJCcZjaqVHFJpt_EUEr9zEN9vnxY6ZumVnJgNKQWLp/exec";
+  /* Workshop-only Apps Script web app: writes to "QDC Workshop Registrations" and emails a confirmation.
+     Source: _tools/workshop-registration.gs */
+  var ENDPOINT = "https://script.google.com/macros/s/AKfycbz7lPVNhS6zOiJtRUyKJeRWOF3ijfHXCTDp3_W7LUU9EyKQbMauI--9KxccjWTDM1CB8A/exec";
   var EVENT_ID = "classiq-2026-11-13";
   var GROUPS = { experience: ["None", "Some", "Experienced"], laptop: ["Yes", "No"] };
 
@@ -221,36 +223,29 @@
     var major = clean(document.getElementById("w-major").value);
     var exp = chosen("experience"), laptop = chosen("laptop");
     var question = clean(document.getElementById("w-question").value);
-    var now = new Date();
-    var stampET = now.toLocaleString("en-US", { timeZone: "America/New_York" }) + " ET";
 
     var data = {
-      /* Plain fields (for an updated script) */
-      track: "workshop", event: EVENT_ID, timestamp: now.toISOString(),
-      email: email, full_name: name, status: status, experience: exp, laptop: laptop, question: question,
-      /* Columns the current sheet script keeps */
-      name: name + " <" + email + "> [WS|" + EVENT_ID + "]",
-      college: "Status: " + (status || "not given"),
-      major: major,
-      degree: "Experience: " + (exp || "not given"),
-      interests: question ? "Question: " + question : "",
-      role: "Laptop: " + (laptop || "not given"),
-      pace: "Workshop " + EVENT_ID,
-      collab: "", comm: "",
-      avail: "Registered " + stampET
+      event: EVENT_ID, full_name: name, email: email, status: status, major: major,
+      experience: exp, laptop: laptop, question: question
     };
 
     sending = true; msgEl.hidden = true;
     btn.disabled = true; btn.textContent = "Registering…";
     var ctrl = window.AbortController ? new AbortController() : null;
     var timer = ctrl ? setTimeout(function () { ctrl.abort(); }, 20000) : null;
-    fetch(ENDPOINT, { method: "POST", mode: "no-cors", body: new URLSearchParams(data), signal: ctrl ? ctrl.signal : undefined })
-      .then(function () {
+    fetch(ENDPOINT, { method: "POST", body: new URLSearchParams(data), signal: ctrl ? ctrl.signal : undefined })
+      .then(function (r) { return r.json(); })
+      .then(function (res) {
         if (timer) clearTimeout(timer);
+        if (!res || !res.ok) throw new Error((res && res.error) || "failed");
         var first = name.split(" ")[0];
-        form.innerHTML = '<div class="form-success" role="status"><h3>You&#8217;re registered!</h3><p></p></div>';
-        form.querySelector(".form-success p").textContent = "Thanks, " + first +
+        form.innerHTML = '<div class="form-success" role="status"><h3>You&#8217;re registered!</h3><p></p><p class="form-note" style="margin-top:10px"></p></div>';
+        var ps = form.querySelectorAll(".form-success p");
+        ps[0].textContent = "Thanks, " + first +
           ". See you Friday, November 13 at 3:00 PM in the Trading Room (BU 101), College of Business. Don't forget your laptop.";
+        ps[1].textContent = res.emailed
+          ? "A confirmation email is on its way to " + email + " (check spam if you don't see it)."
+          : "You're on the list. We couldn't send the confirmation email, but your spot is saved.";
         form.scrollIntoView({ behavior: "smooth", block: "center" });
       })
       .catch(function () {
