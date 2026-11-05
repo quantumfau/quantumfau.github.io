@@ -17,7 +17,8 @@ that are actually true right now:
 |---|---|
 | `index.html` | Home — what the club is, one sentence, one call to action |
 | `about.html` | Mission and who it's for |
-| `contact.html` | Contact info + WhatsApp join + QR code |
+| `join.html` | Club sign-up form (emails the group chat link) |
+| `contact.html` | Contact info + join button |
 
 ## Project structure
 
@@ -25,7 +26,8 @@ that are actually true right now:
 .
 ├── index.html            Home
 ├── about.html             Mission, who it's for
-├── contact.html           Contact info + WhatsApp join + QR code
+├── join.html              Club sign-up form (banner QR code points here)
+├── contact.html           Contact info + join button
 ├── css/style.css          Design system (dark, Apple-inspired theme)
 ├── js/main.js             Nav toggle, scroll reveals, scroll-driven quantum-computer background
 ├── assets/favicon.svg           Site icon (quantum "atom" mark)
@@ -70,13 +72,13 @@ git push
 
 ## How people join
 
-The Contact page (and the "Join now" buttons throughout the site) send people
-straight to the club's **WhatsApp group** — a "Join the WhatsApp group" button
-and a scannable QR code, no backend or form service required. To point these at
-a different invite link, update the `https://chat.whatsapp.com/...` URL in
-`_partials/nav.html` (if used), `_partials/footer.html`, `_content/index.html`,
-`_content/about.html`, and `_content/contact.html`, regenerate the QR image at
-`assets/img/whatsapp-qr.png`, then run `./_build.sh`, commit, and push.
+Every "Join the club" button on the site (and the printed banner QR code) goes to
+`join.html`, a short sign-up form. It posts `form=join` to the same Google Apps
+Script web app as the workshop form (`_tools/workshop-registration.gs`), which
+writes a row to the "QDC Member Sign-ups" sheet and emails the person the
+WhatsApp group chat link. The group chat link itself is not shown on the site.
+To change the invite link, update `GROUP_CHAT_URL` in the Apps Script and
+redeploy it. `assets/img/whatsapp-qr.png` is kept but no longer used on any page.
 
 ## Logo
 

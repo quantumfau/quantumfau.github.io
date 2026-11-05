@@ -1,0 +1,152 @@
+<main>
+
+  <div class="page-header">
+    <div class="container">
+      <div class="mini-orb reveal in"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><ellipse cx="12" cy="12" rx="9.8" ry="4.1"/><ellipse cx="12" cy="12" rx="9.8" ry="4.1" transform="rotate(58 12 12)"/><circle cx="12" cy="12" r="2.1" fill="currentColor"/></svg></div>
+      <span class="kicker reveal in">Join &#183; Free &#183; Open to everyone</span>
+      <h1 class="reveal in">Join the <span class="gradient-text">Quantum Development Club</span></h1>
+      <p class="reveal in">Every major is welcome. No quantum background needed.</p>
+    </div>
+  </div>
+
+  <section class="tight" id="signup">
+    <div class="container">
+      <form class="form-panel wide" id="join-form" novalidate>
+        <div class="form-row">
+          <label for="j-name">Full name</label>
+          <input type="text" id="j-name" name="full_name" placeholder="Owl Burrow" autocomplete="name" required>
+        </div>
+        <div class="form-row">
+          <label for="j-email">Email</label>
+          <input type="email" id="j-email" name="email" placeholder="you@fau.edu" autocomplete="email" inputmode="email" required>
+        </div>
+        <div class="form-row">
+          <label for="j-status">I am a <span style="color:var(--text-tertiary);font-weight:400">&#8212; optional</span></label>
+          <select id="j-status" name="status">
+            <option value="">Choose one</option>
+            <option>FAU undergrad</option>
+            <option>FAU grad student</option>
+            <option>FAU faculty or staff</option>
+            <option>Student at another school</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label for="j-major">Major or department <span style="color:var(--text-tertiary);font-weight:400">&#8212; optional</span></label>
+          <input type="text" id="j-major" name="major" placeholder="e.g. Finance, Computer Science, Physics">
+        </div>
+        <div class="form-row">
+          <label>What are you interested in? <span style="color:var(--text-tertiary);font-weight:400">&#8212; pick any</span></label>
+          <div class="chip-row" data-group="interests"></div>
+        </div>
+        <div class="form-row">
+          <label for="j-heard">How did you hear about us? <span style="color:var(--text-tertiary);font-weight:400">&#8212; optional</span></label>
+          <select id="j-heard" name="heard">
+            <option value="">Choose one</option>
+            <option>Instagram</option>
+            <option>A friend</option>
+            <option>A flyer or banner</option>
+            <option>A class</option>
+            <option>An event</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-gradient" style="width:100%;">Join the club</button>
+        <p class="form-note">We&#8217;ll email you the link to the club group chat right away. Your answers go only to the Quantum Development Club organizers.</p>
+        <div class="form-err" id="j-msg" hidden></div>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<script>
+(function () {
+  /* Club sign-up: same Apps Script web app as the workshop form, routed by form=join.
+     Writes to the "QDC Member Sign-ups" sheet and emails the group-chat link.
+     Source: _tools/workshop-registration.gs */
+  var ENDPOINT = "https://script.google.com/macros/s/AKfycbz7lPVNhS6zOiJtRUyKJeRWOF3ijfHXCTDp3_W7LUU9EyKQbMauI--9KxccjWTDM1CB8A/exec";
+  var GROUPS = { interests: ["Quantum computing", "Quantum + AI", "Hackathons", "Workshops", "Conferences", "Research", "Finance & business", "Building projects"] };
+
+  var form = document.getElementById("join-form");
+  if (!form) return;
+
+  form.querySelectorAll(".chip-row").forEach(function (row) {
+    (GROUPS[row.dataset.group] || []).forEach(function (v) {
+      var b = document.createElement("span");
+      b.className = "chip-opt"; b.setAttribute("role", "button"); b.tabIndex = 0;
+      b.setAttribute("aria-pressed", "false"); b.dataset.v = v; b.textContent = v;
+      function toggle() { b.setAttribute("aria-pressed", b.getAttribute("aria-pressed") === "true" ? "false" : "true"); }
+      b.addEventListener("click", toggle);
+      b.addEventListener("keydown", function (e) { if (e.key === " " || e.key === "Enter") { e.preventDefault(); toggle(); } });
+      row.appendChild(b);
+    });
+  });
+
+  function chosenAll(g) {
+    return Array.prototype.map.call(
+      form.querySelectorAll('.chip-row[data-group="' + g + '"] [aria-pressed="true"]'),
+      function (o) { return o.dataset.v; });
+  }
+  /* Keep text from being read as a spreadsheet formula. */
+  function clean(s) { return String(s || "").replace(/\s+/g, " ").trim().replace(/^[=+\-@\t\r]+/, "").trim(); }
+  var msgEl = document.getElementById("j-msg");
+  function msg(t) { msgEl.hidden = false; msgEl.textContent = t; }
+  function failMsg() {
+    msgEl.hidden = false;
+    msgEl.innerHTML = 'Something went wrong sending your sign-up. Please try again, or email us at <a href="mailto:qdc.fau@outlook.com" style="color:inherit;text-decoration:underline;">qdc.fau@outlook.com</a> and we&#8217;ll add you.';
+  }
+
+  var sending = false;
+  var btn = form.querySelector('button[type="submit"]');
+  var btnLabel = btn.textContent;
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    if (sending) return;
+    var name = clean(document.getElementById("j-name").value);
+    var email = clean(document.getElementById("j-email").value).toLowerCase();
+    if (!name) { msg("Please add your full name."); return; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { msg("Please add a valid email address."); return; }
+
+    var data = {
+      form: "join", full_name: name, email: email,
+      status: document.getElementById("j-status").value,
+      major: clean(document.getElementById("j-major").value),
+      interests: chosenAll("interests").join("; "),
+      heard: document.getElementById("j-heard").value
+    };
+
+    sending = true; msgEl.hidden = true;
+    btn.disabled = true; btn.textContent = "Signing you up…";
+    var ctrl = window.AbortController ? new AbortController() : null;
+    var timer = ctrl ? setTimeout(function () { ctrl.abort(); }, 20000) : null;
+    fetch(ENDPOINT, { method: "POST", body: new URLSearchParams(data), signal: ctrl ? ctrl.signal : undefined })
+      .then(function (r) { return r.json(); })
+      .then(function (res) {
+        if (timer) clearTimeout(timer);
+        if (!res || !res.ok) throw new Error((res && res.error) || "failed");
+        var first = name.split(" ")[0];
+        form.innerHTML = '<div class="form-success" role="status"><h3></h3><p></p><p class="form-note" style="margin-top:10px"></p></div>';
+        var h = form.querySelector(".form-success h3");
+        var ps = form.querySelectorAll(".form-success p");
+        if (res.emailed) {
+          h.textContent = "You're in! Check your email for the group chat link";
+          ps[0].textContent = "Thanks, " + first + ". We sent the link to " + email + ".";
+          ps[1].textContent = (res.repeat ? "Looks like you'd signed up before, so we sent it again. " : "") +
+            "If you don't see it in a few minutes, check your spam or promotions folder.";
+        } else {
+          h.textContent = "You're in!";
+          ps[0].textContent = "Thanks, " + first + ". Your sign-up with " + email + " is saved, but we couldn't send the email with the group chat link.";
+          ps[1].innerHTML = 'Email us at <a href="mailto:qdc.fau@outlook.com" style="color:inherit;text-decoration:underline;">qdc.fau@outlook.com</a> and we&#8217;ll send it to you.';
+        }
+        form.scrollIntoView({ behavior: "smooth", block: "center" });
+      })
+      .catch(function () {
+        if (timer) clearTimeout(timer);
+        sending = false; btn.disabled = false; btn.textContent = btnLabel;
+        failMsg();
+      });
+  });
+})();
+</script>

@@ -191,7 +191,7 @@ def render():
         <h2>Want to be part of it?</h2>
         <p>FAU's quantum scene is moving fast. Join the club and grow with it.</p>
         <div class="hero-actions">
-          <a href="https://chat.whatsapp.com/LAW8ps6Jjb59WcjlVSt32g?s=cl&amp;p=i&amp;mlu=4" target="_blank" rel="noopener" class="btn btn-gradient">Join now</a>
+          <a href="join.html" class="btn btn-gradient">Join the club</a>
           <a href="about.html" class="link-chevron">About the club {CHEV}</a>
         </div>
       </div>

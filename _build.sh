@@ -23,6 +23,7 @@ build_page "workshop"  "Hands-On Quantum Programming Workshop | Quantum Developm
 build_page "hackathon" "Hackathon | Quantum Development Club at FAU" "Florida Qiskit Hackathon: Quantum Horizons, Oct 17-18, 2026 at FAU. Register on DeepStation, set up IBM Quantum, and take the team-matching quiz."
 build_page "notebooks" "Sample notebooks | Quantum Development Club at FAU" "Sample IBM Quantum notebooks for the Florida Qiskit Hackathon at FAU, sorted by topic and by how much code they need."
 build_page "news"    "News | Quantum Development Club at FAU" "The latest in quantum at Florida Atlantic University, including FAU's new quantum computing business course."
+build_page "join"    "Join the Club | Quantum Development Club at FAU" "Join the Quantum Development Club at Florida Atlantic University. Every major welcome, no quantum background needed. Sign up and we will email you the group chat link."
 build_page "contact" "Contact | Quantum Development Club at FAU" "Get in touch with the Quantum Development Club at Florida Atlantic University, or sign up to join."
 
 echo "All pages built."
