@@ -12,48 +12,6 @@
         <a href="about.html" class="link-chevron">Learn more <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></a>
       </div>
 
-      <div class="hk-countdown reveal in" id="hk-countdown" data-start="2026-10-17T13:00:00Z" data-end="2026-10-18T23:59:00-04:00">
-        <div class="hk-cd-label">Florida Qiskit Fallfest Hackathon &#183; Sat, Oct 17 &#183; 9:00 AM &#183; FAU Boca Raton</div>
-        <div class="hk-cd-clock" aria-live="polite">
-          <div><span data-u="d">--</span><small>days</small></div>
-          <div><span data-u="h">--</span><small>hours</small></div>
-          <div><span data-u="m">--</span><small>min</small></div>
-          <div><span data-u="s">--</span><small>sec</small></div>
-        </div>
-        <div class="hk-cd-actions">
-          <a href="https://deepstation.ai/hackathons/mtrxfkxet400k68imrz4y5wn" target="_blank" rel="noopener" class="btn btn-gradient">Register on DeepStation</a>
-          <a href="hackathon.html#quiz" class="link-chevron">Need help building a team? <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></a>
-        </div>
-      </div>
-      <style>
-        .hk-countdown{margin:34px auto 0;max-width:620px;padding:22px 24px;border-radius:20px;border:1px solid rgba(143,92,255,.35);background:linear-gradient(180deg,rgba(20,14,40,.82),rgba(8,18,28,.82));backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);text-align:center}
-        .hk-cd-label{font-size:13.5px;letter-spacing:.02em;color:var(--accent-cyan);font-weight:600}
-        .hk-cd-clock{display:flex;justify-content:center;gap:14px;margin:14px 0 16px}
-        .hk-cd-clock div{min-width:74px;padding:10px 6px;border-radius:14px;background:rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.08)}
-        .hk-cd-clock span{display:block;font-size:clamp(28px,5vw,40px);font-weight:700;font-variant-numeric:tabular-nums;line-height:1.05;background:linear-gradient(100deg,#8f5cff,#22e6ff);-webkit-background-clip:text;background-clip:text;color:transparent}
-        .hk-cd-clock small{display:block;margin-top:4px;font-size:11.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--text-tertiary)}
-        .hk-cd-actions{display:flex;flex-wrap:wrap;gap:16px;justify-content:center;align-items:center}
-        @media (max-width:480px){.hk-cd-clock{gap:8px}.hk-cd-clock div{min-width:62px}}
-      </style>
-      <script>
-      (function () {
-        var el = document.getElementById("hk-countdown"); if (!el) return;
-        var start = Date.parse(el.dataset.start), end = Date.parse(el.dataset.end);
-        var u = {}; el.querySelectorAll("[data-u]").forEach(function (n) { u[n.dataset.u] = n; });
-        var pad = function (n) { return (n < 10 ? "0" : "") + n; };
-        function tick() {
-          var now = Date.now(), left = Math.max(0, start - now);
-          if (now >= end) { el.querySelector(".hk-cd-label").textContent = "The Florida Qiskit Fallfest Hackathon has wrapped. Thanks to everyone who built with us!"; el.querySelector(".hk-cd-clock").hidden = true; el.querySelector(".hk-cd-actions").hidden = true; return; }
-          if (now >= start) { el.querySelector(".hk-cd-label").textContent = "The hackathon is happening now at FAU Boca Raton!"; el.querySelector(".hk-cd-clock").hidden = true; return; }
-          var s = Math.floor(left / 1000);
-          u.d.textContent = pad(Math.floor(s / 86400)); u.h.textContent = pad(Math.floor(s % 86400 / 3600));
-          u.m.textContent = pad(Math.floor(s % 3600 / 60)); u.s.textContent = pad(s % 60);
-          setTimeout(tick, 1000 - (now % 1000));
-        }
-        tick();
-      })();
-      </script>
-
       <div class="supporters reveal in">
         <span class="supporters-label">Supporting quantum development at FAU</span>
         <div class="supporters-logos">
