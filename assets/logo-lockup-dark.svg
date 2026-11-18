@@ -1,14 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 56" width="460" height="56">
-  <defs>
-    <linearGradient id="qdcLockupGradDark" x1="0" y1="0" x2="44" y2="44" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#5e5ce6"/>
-      <stop offset="1" stop-color="#64d2ff"/>
-    </linearGradient>
-  </defs>
-  <g transform="translate(0,6)">
-    <ellipse cx="22" cy="22" rx="18" ry="7.6" stroke="url(#qdcLockupGradDark)" stroke-width="2.3" fill="none"/>
-    <ellipse cx="22" cy="22" rx="18" ry="7.6" stroke="url(#qdcLockupGradDark)" stroke-width="2.3" fill="none" transform="rotate(58 22 22)"/>
-    <circle cx="22" cy="22" r="3.9" fill="url(#qdcLockupGradDark)"/>
-  </g>
-  <text x="60" y="35" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Helvetica, Arial, sans-serif" font-size="25" font-weight="700" letter-spacing="-0.5" fill="#f5f5f7">Quantum Development Club</text>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 56" width="460" height="56"><defs><linearGradient id="qdcLockupGradDark" x1="14.0" y1="0" x2="26.0" y2="0" gradientUnits="userSpaceOnUse"><stop stop-color="#8f5cff"/><stop offset="0.5" stop-color="#3f9bff"/><stop offset="1" stop-color="#22e6ff"/></linearGradient></defs><g transform="translate(0 6) scale(1.1)"><path d="M20,9.61 A12,12 0 0 1 20,30.39 A12,12 0 0 1 20,9.61Z" fill="url(#qdcLockupGradDark)"/><circle cx="14.0" cy="20.0" r="12" fill="none" stroke="#8f5cff" stroke-width="2.6"/><circle cx="26.0" cy="20.0" r="12" fill="none" stroke="#22e6ff" stroke-width="2.6"/><path d="M15.254,8.066 A12,12 0 0 1 23.708,12.947" fill="none" stroke="#8f5cff" stroke-width="2.6"/></g><text x="60" y="35" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Helvetica, Arial, sans-serif" font-size="25" font-weight="700" letter-spacing="-0.5" fill="#f5f5f7">Quantum Development Club</text></svg>

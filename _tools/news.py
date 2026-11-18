@@ -83,7 +83,7 @@ def fetch():
 
 # ---------------------------------------------------------------- render
 CHEV = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg>'
-ORB = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><ellipse cx="12" cy="12" rx="9.8" ry="4.1"/><ellipse cx="12" cy="12" rx="9.8" ry="4.1" transform="rotate(58 12 12)"/><circle cx="12" cy="12" r="2.1" fill="currentColor"/></svg>'
+ORB = '<svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20,9.61 A12,12 0 0 1 20,30.39 A12,12 0 0 1 20,9.61Z" fill="currentColor" stroke="none"/><circle cx="14.0" cy="20.0" r="12"/><circle cx="26.0" cy="20.0" r="12"/></svg>'
 e = lambda s: html.escape(s or "", quote=True)
 
 def nice(iso):
